@@ -4,12 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,14 +31,22 @@ public class MainActivity extends AppCompatActivity {
     private MyPage myPage;
     private Stamp stamp;
     private TourList tourList;
+    private ArrayList<TourList> dataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.InitializeData();
 
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(new MyAdapter(dataList));
+
+        //바텀 네비게이션 바
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -92,4 +104,15 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    public void InitializeData()
+    {
+        dataList = new ArrayList<>();
+        //int imageResourceID, String tourTitle, String tourDescription, String distance, String numericalValue, int imageNumericalValueID
+        dataList.add(new TourList(R.drawable.ic_baseline_map_24,"석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24));
+        dataList.add(new TourList(R.drawable.ic_baseline_map_24,"첨성대", "첨성대 기무띠", "700m 전","123,421 명",R.drawable.ic_baseline_map_24));
+        dataList.add(new TourList(R.drawable.ic_baseline_map_24,"강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24));
+
+    }
+
 }
