@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!--서울 식물원 색상 중 가장 어두운 초록색-->
+    <color name="colorBase">#4C7F3A</color>
+
+    <!-- 서울 식물원 색상 중 가장 밝은 색 -->
+    <color name="colorBaseLight">#C1D42D</color>
+    <color name="colorBaseLightGreen">#90BC43</color>
+    <color name="colorBaseCyan">#55A37C</color>
+
+
+    <!--하단 바 비활성화일 때 색상(짙은 회색)-->
+    <color name="no">#878787</color>
+    <!--하단 바 배경색-->
+    <color name="navigation_background_color">#F8F8F8</color>
+    <!--하단 바 배경색-->
+    <color name="lightGray">#DEDEDE</color>
+    <!--주황 색-->
+    <color name="orange_color">#E46C21</color>
+    <color name="help_background">#fcd3c2</color>
+
+    <!-- 투명색 -->
+    <color name="colorTransparent">#00FF0000</color>
+
+    <color name="colorCardView">#E7FF91</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBanner">#CCFAFFFA</color>
+
+
+</resources>
