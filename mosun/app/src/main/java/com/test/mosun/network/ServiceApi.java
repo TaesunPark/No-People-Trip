@@ -16,4 +16,7 @@ public interface ServiceApi {
 
     @POST("/user/insert")
     Call<LoginResponse> userInsert(@Body LoginData data);
+
+//    @POST("/map")
+//    Call<>
 }

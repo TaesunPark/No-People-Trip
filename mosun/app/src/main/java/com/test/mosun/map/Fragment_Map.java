@@ -40,9 +40,9 @@ public class Fragment_Map extends Fragment {
         mapView = new MapView(getActivity());
         //ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer = (ViewGroup) view.findViewById(R.id.map_view);
+
+        //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
         mapViewContainer.addView(mapView);
-
-
 
 
 

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.test.mosun.login.LoginActivity;
 import com.test.mosun.map.Fragment_Map;
 import com.test.mosun.qrcode.QRPopupActivity;
 
@@ -30,11 +31,15 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     BackPressCloseHandler backPressCloseHandler;
 
+
+    private LoginActivity loginActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         backPressCloseHandler = new BackPressCloseHandler(this);
         setContentView(R.layout.activity_main);
+
+        //loginActivity.finish();
 
         //상태 바 색 바꿔줌
         View view = getWindow().getDecorView();
@@ -83,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()) {
                 case R.id.home:
+
+                    Log.i("home","home");
                     if (fragment_Home == null) {
                         fragment_Home = Fragment_Home.newInstance();
                         fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Home, "home").commit();
@@ -106,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
                     if (fragment_Map != null)
                         fragmentManager.beginTransaction().show(fragment_Map).commit();
 
-
-                    break;
+//
+//                    break;
 
             }
             return true;
@@ -129,7 +136,7 @@ class BackPressCloseHandler {
     private long backKeyPressedTime = 0;
     private Toast toast;
     private Activity activity;
-
+    private LoginActivity loginActivity;
     public BackPressCloseHandler(Activity context) {
         this.activity = context;
     }
@@ -142,6 +149,7 @@ class BackPressCloseHandler {
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
             activity.finish();
+            loginActivity.finish();
             toast.cancel();
         }
     }
