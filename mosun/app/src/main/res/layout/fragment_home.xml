@@ -30,24 +30,26 @@
             app:sliderStartAutoCycle="true" />
 
 
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@color/colorBanner">-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBanner">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/seoul_botanical_garden_logo"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:layout_margin="@dimen/margin_normal"-->
-<!--                android:src="@drawable/seoul_botanical_garden_logo" />-->
-<!--        </RelativeLayout>-->
+            <ImageView
+                android:id="@+id/mosun_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/margin_normal"
+                android:src="@drawable/mosun_logo" />
+        </RelativeLayout>
     </FrameLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_weight="0">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="vertical">
 
 <!--        <ImageButton-->
 <!--            android:id="@+id/help_btn"-->
@@ -60,14 +62,27 @@
 <!--            android:background="@null"-->
 <!--            android:src="@drawable/ic_help_outline" />-->
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="@dimen/margin_wide"-->
-<!--            android:layout_marginBottom="100dp"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="vertical">-->
+        <TextView
+            android:id="@+id/title_plants_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:text="지역 선택"
+            android:textColor="@color/colorBaseCyan"
+            android:textSize="20sp" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_wide"
+            android:layout_marginBottom="100dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
 <!--            <ImageView-->
 <!--                android:layout_width="35dp"-->
@@ -75,33 +90,24 @@
 <!--                android:layout_margin="@dimen/margin_narrow"-->
 <!--                android:src="@drawable/ic_herb" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/title_plants_today"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:layout_marginBottom="@dimen/margin_normal"-->
-<!--                android:text="오늘의 식물"-->
-<!--                android:textColor="@color/colorBaseCyan"-->
-<!--                android:textSize="20sp" />-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_wide"
+                android:layout_marginRight="@dimen/margin_wide">
 
-<!--            <FrameLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="@dimen/margin_wide"-->
-<!--                android:layout_marginRight="@dimen/margin_wide">-->
-
-<!--                <GridView-->
-<!--                    android:id="@+id/gridview_plant_today"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="bottom"-->
-<!--                    android:horizontalSpacing="@dimen/margin_normal"-->
-<!--                    android:numColumns="3"-->
-<!--                    android:overScrollMode="never"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:stretchMode="columnWidth"-->
-<!--                    android:verticalSpacing="@dimen/margin_normal" />-->
+                <GridView
+                    android:id="@+id/gridview_select_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dp"
+                    android:horizontalSpacing="@dimen/margin_normal"
+                    android:numColumns="3"
+                    android:overScrollMode="never"
+                    android:padding="10dp"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="@dimen/margin_normal" />
 
 <!--                <LinearLayout-->
 <!--                    android:id="@+id/barcode"-->
@@ -124,8 +130,9 @@
 <!--                        android:layout_marginBottom="@dimen/margin_narrow"/>-->
 <!--                </LinearLayout>-->
 
-<!--            </FrameLayout>-->
-<!--        </LinearLayout>-->
-<!--    </RelativeLayout>-->
+            </FrameLayout>
+        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

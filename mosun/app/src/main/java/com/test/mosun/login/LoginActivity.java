@@ -19,9 +19,11 @@ import com.kakao.auth.Session;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
+import com.test.mosun.AppManager;
 import com.test.mosun.MainActivity;
 import com.test.mosun.R;
 import com.test.mosun.activity.AreaActivity;
+import com.test.mosun.areaItem;
 import com.test.mosun.data.LoginData;
 import com.test.mosun.data.LoginResponse;
 import com.test.mosun.network.RetrofitClient;
@@ -29,6 +31,9 @@ import com.test.mosun.network.ServiceApi;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -94,6 +99,7 @@ public class LoginActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                onSaveAreaData();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
@@ -327,7 +333,7 @@ public class LoginActivity extends Activity {
                 //Log.i("userId",Integer.toString(result.getUserId()));
 
                 Log.i("startLogin","존재하지 않는 계정");
-                if(result.getMessage().startsWith("존재하지"))
+                if(result.getMessage().startsWith("존재하지"))//존재하지 않는 계정이면 insert
                 {
                     Log.i("startLogin","들어왔쥬");
                     startInsert(data);
@@ -335,6 +341,8 @@ public class LoginActivity extends Activity {
 
                 if(Integer.toString(result.getUserId()).equals(data.getUserId())){
                     Log.i("startLogin","같음"+result.getUserId());
+                    AppManager.getInstance().setUserID(Integer.toString(result.getUserId()));
+
                 }
             }
 
@@ -356,7 +364,6 @@ public class LoginActivity extends Activity {
                 LoginResponse result = response.body();
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.i("userId",Integer.toString(result.getUserId()));
-
                // Log.i("startLogin","존재하지 않는 계정");
 
 
@@ -370,6 +377,14 @@ public class LoginActivity extends Activity {
 
             }
         });
+    }
+
+    public void onSaveAreaData(){
+        ArrayList<areaItem> list;
+        list = new ArrayList<>();
+        list.add(new areaItem(0,"area_0","서울"));
+        list.add(new areaItem(0,"area_1","경주"));
+        AppManager.getInstance().setAreaList(list);
     }
 
 

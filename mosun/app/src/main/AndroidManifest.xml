@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".qrcode.qrPopupActivity"></activity>
+        <activity android:name=".qrcode.qrPopUp" />
+        <activity android:name=".qrcode.MainActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -25,10 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".activity.CourseActivity" />
         <activity android:name=".activity.AreaActivity" />
-
     </application>
 
 </manifest>

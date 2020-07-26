@@ -2,8 +2,12 @@ package com.test.mosun;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppManager {
     private static AppManager instance = null;
+    private List<areaItem> list;
 
     private AppManager() {
     }
@@ -12,6 +16,12 @@ public class AppManager {
         if (instance == null)
             instance = new AppManager();
         return instance;
+    }
+    public List<areaItem> getAreaList() {
+        return list;
+    }
+    public void setAreaList(List<areaItem> list) {
+        this.list = list;
     }
 
     private String userId = null;
