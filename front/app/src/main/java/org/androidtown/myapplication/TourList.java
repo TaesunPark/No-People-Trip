@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 public class TourList extends Fragment {
 
     private View view;
-    private int imageResourceID; // 이미지 id
     private String tourTitle; // 여행 제목
     private String tourDescription; // 여행 설명
     private String distance; // 거리
@@ -21,7 +20,7 @@ public class TourList extends Fragment {
 
     // 기본 생성자 초기화
     public TourList(){
-        imageResourceID = 0;
+
         tourTitle = "0";
         tourDescription = "0";
         distance = "0";
@@ -29,9 +28,8 @@ public class TourList extends Fragment {
         imageNumericalValueID = 0;
     }
 
-    public TourList(int imageResourceID, String tourTitle, String tourDescription, String distance, String numericalValue, int imageNumericalValueID)
+    public TourList(String tourTitle, String tourDescription, String distance, String numericalValue, int imageNumericalValueID)
     {
-        this.imageResourceID = imageResourceID;
         this.tourTitle = tourTitle;
         this.tourDescription = tourDescription;
         this.distance = distance;
@@ -40,13 +38,6 @@ public class TourList extends Fragment {
     }
 
 
-    public int getImageResourceID() {
-        return imageResourceID;
-    }
-
-    public void setImageResourceID(int imageResourceID) {
-        this.imageResourceID = imageResourceID;
-    }
 
     public int getImageNumericalValueID() {
         return imageNumericalValueID;
@@ -55,6 +46,8 @@ public class TourList extends Fragment {
     public String getTourTitle() {
         return tourTitle;
     }
+
+    public void setTourTitle(String data) { tourTitle = data; }
 
     public String getTourDescription() {
         return tourDescription;
@@ -73,15 +66,6 @@ public class TourList extends Fragment {
     public String getNumericalValue() {
         return numericalValue;
     }
-
-
-
-
-
-
-
-
-
 
 
     public void setNumericalValue(String numericalValue) {

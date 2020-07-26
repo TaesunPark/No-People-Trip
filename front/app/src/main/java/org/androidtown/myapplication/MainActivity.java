@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    MyAdapter adapter;
     public static final int CAMERAPAGE = 0;
     public static final int STAMPPAGE = 1;
     public static final int MAPPAGE = 2;
@@ -32,21 +34,52 @@ public class MainActivity extends AppCompatActivity {
     private Stamp stamp;
     private TourList tourList;
     private ArrayList<TourList> dataList;
+    private CheckBox checkBox;
+    private boolean check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.InitializeData();
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(new MyAdapter(dataList));
-
+        init();
+        getData();
+        makeBottomNavigationVar();
         //바텀 네비게이션 바
+
+
+    }
+
+    private void setFrag(int pageNumber){
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+
+        switch (pageNumber){
+
+            case MainActivity.CAMERAPAGE:
+                ft.replace(R.id.dataList, camera);
+                ft.commit();
+                break;
+
+            case MainActivity.STAMPPAGE:
+                ft.replace(R.id.dataList, stamp);
+                ft.commit();
+                break;
+
+            case MainActivity.MAPPAGE:
+                ft.replace(R.id.dataList, map);
+                ft.commit();
+                break;
+
+            case MainActivity.MYPAGE:
+                ft.replace(R.id.dataList, myPage);
+                ft.commit();
+                break;
+
+        }
+    }
+
+    public void makeBottomNavigationVar(){
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -68,51 +101,43 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+        check = false;
         tourList = new TourList();
         stamp = new Stamp();
         myPage = new MyPage();
         map = new Map();
         camera = new Camera();
+
     }
 
-    private void setFrag(int pageNumber){
-        fm = getSupportFragmentManager();
-        ft = fm.beginTransaction();
+    private void init(){
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.dataList);
 
-        switch (pageNumber){
-
-            case MainActivity.CAMERAPAGE:
-                ft.replace(R.id.main_frame, camera);
-                ft.commit();
-                break;
-
-            case MainActivity.STAMPPAGE:
-                ft.replace(R.id.main_frame, stamp);
-                ft.commit();
-                break;
-
-            case MainActivity.MAPPAGE:
-                ft.replace(R.id.main_frame, map);
-                ft.commit();
-                break;
-
-            case MainActivity.MYPAGE:
-                ft.replace(R.id.main_frame, myPage);
-                ft.commit();
-                break;
-
-        }
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        adapter = new MyAdapter();
+        recyclerView.setAdapter(adapter);
     }
 
-    public void InitializeData()
+    public void getData()
     {
-        dataList = new ArrayList<>();
+        TourList data = new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24);
         //int imageResourceID, String tourTitle, String tourDescription, String distance, String numericalValue, int imageNumericalValueID
-        dataList.add(new TourList(R.drawable.ic_baseline_map_24,"석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24));
-        dataList.add(new TourList(R.drawable.ic_baseline_map_24,"첨성대", "첨성대 기무띠", "700m 전","123,421 명",R.drawable.ic_baseline_map_24));
-        dataList.add(new TourList(R.drawable.ic_baseline_map_24,"강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24));
-
+        adapter.addItem(data);
+        data = new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24);
+        adapter.addItem(data);
+        data = new TourList("첨성대", "첨성대 기무띠", "700m 전","123,421 명",R.drawable.ic_baseline_map_24);
+        adapter.addItem(data);
+        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+        adapter.addItem(data);
+        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+        adapter.addItem(data);
+        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+        adapter.addItem(data);
+        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+        adapter.addItem(data);
+        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+        adapter.addItem(data);
     }
 
 }

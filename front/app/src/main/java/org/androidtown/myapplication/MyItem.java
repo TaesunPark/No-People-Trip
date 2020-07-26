@@ -1,4 +1,6 @@
 package org.androidtown.myapplication;
 
-public class MyItem {
+import java.io.Serializable;
+
+public class MyItem implements Serializable {
 }
