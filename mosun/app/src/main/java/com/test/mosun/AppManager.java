@@ -1,7 +1,7 @@
 package com.test.mosun;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.test.mosun.qrcode.QRPopupActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,4 +35,9 @@ public class AppManager {
     private MainActivity mainActivity;
     public void setMainActivity(MainActivity mainActivity) {this.mainActivity = mainActivity; }
     public MainActivity getMainActivity(){ return  mainActivity; }
+
+    private QRPopupActivity qrPopUpActivity;
+    public void setQRPopUpActivity (QRPopupActivity qrPopUpActivity) {this.qrPopUpActivity = qrPopUpActivity; }
+    public QRPopupActivity getQRPopUpActivity() { return  qrPopUpActivity; }
+
 }
