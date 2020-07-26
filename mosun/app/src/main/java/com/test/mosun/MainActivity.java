@@ -5,16 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.test.mosun.R;
+import com.test.mosun.qrcode.qrPopupActivity;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
@@ -99,8 +102,37 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            //qr코드 메소드
+            Intent intent = new Intent(MainActivity.this, qrPopupActivity.class);
+            startActivity(intent);
 
         }
     };
+}
+
+class BackPressCloseHandler {
+    private long backKeyPressedTime = 0;
+    private Toast toast;
+    private Activity activity;
+
+    public BackPressCloseHandler(Activity context) {
+        this.activity = context;
+    }
+
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            showGuide();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            activity.finish();
+            toast.cancel();
+        }
+    }
+
+    public void showGuide() {
+        toast = Toast.makeText(activity, "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
 }

@@ -63,7 +63,7 @@
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/ticket"
+                    android:src="@drawable/qr_code"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="14dp" />
 
