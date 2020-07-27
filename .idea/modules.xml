@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mosun.iml" filepath="$PROJECT_DIR$/.idea/modules/mosun.iml" group="mosun" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mosun.iml" filepath="$PROJECT_DIR$/.idea/modules/mosun.iml" />
     </modules>
   </component>
 </project>

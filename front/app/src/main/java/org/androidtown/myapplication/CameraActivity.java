@@ -49,7 +49,7 @@ public class CameraActivity extends AppCompatActivity implements ZXingScannerVie
                     public void onPermissionDenied(PermissionDeniedResponse response) {
                         Toast.makeText(CameraActivity.this,"You must accept this permission",Toast.LENGTH_SHORT);
                     }
-                    
+
                     @Override
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
 
