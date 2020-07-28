@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string-array name="programming_languages">
-        <item></item>
-    </string-array>
-    
+
 </resources>

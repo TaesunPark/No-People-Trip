@@ -13,9 +13,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // 텐서플로우 라이트 추가부분
-        ndk{
-            abiFilters 'armeabi-v7a', 'arm64-v8a'
+
+        aaptOptions{
+            noCompress "tflite"
+            noCompress "lite"
         }
 
     }
@@ -44,5 +45,5 @@ dependencies {
     implementation 'com.karumi:dexter:5.0.0'
 
     // 텐서플로우 라이트 추가 부분
-    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
+    implementation 'org.tensorflow:tensorflow-lite:+'
 }
