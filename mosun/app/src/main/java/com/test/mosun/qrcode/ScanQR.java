@@ -27,6 +27,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+//하하하하하
 public class ScanQR extends AppCompatActivity {
 
     private IntentIntegrator qrScan;
