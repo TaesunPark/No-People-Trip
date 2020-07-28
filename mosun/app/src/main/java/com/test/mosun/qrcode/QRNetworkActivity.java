@@ -15,6 +15,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+////하하하하
 public class QRNetworkActivity extends AppCompatActivity {
 
     public QRData data;
