@@ -14,13 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".stamp.DetailPopUpActivity"></activity>
+        <activity android:name=".stamp.CourseSelectionActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" />
-
-        <!--qr코드 액티비티-->
+            android:value="@string/kakao_app_key" /> <!-- qr코드 액티비티 -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
@@ -29,17 +28,13 @@
         <activity android:name=".qrcode.CreateQR" />
         <activity
             android:name=".qrcode.QRPopupActivity"
+            android:theme="@style/PopUpTheme" /> <!-- 홈 액티비티 -->
+        <activity
+            android:name=".CoursePopupActivity"
             android:theme="@style/PopUpTheme" />
-
-        <!--홈 액티비티-->
-        <activity android:name=".CoursePopupActivity"
-            android:theme="@style/PopUpTheme"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".activity.CourseActivity" />
-        <activity android:name=".activity.AreaActivity" />
-
-
-        <!--로그인 액티비티-->
+        <activity android:name=".activity.AreaActivity" /> <!-- 로그인 액티비티 -->
         <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

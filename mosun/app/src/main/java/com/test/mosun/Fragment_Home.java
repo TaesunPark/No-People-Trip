@@ -149,8 +149,8 @@ class AreaAdapter extends BaseAdapter {
 
         item = list.get(i);
         ImageView imageView = view.findViewById(R.id.image_thumb);
-        TextView textView = view.findViewById(R.id.name);
-        textView.setText(item.getName());
+//        TextView textView = view.findViewById(R.id.name);
+//        textView.setText(item.getName());
 
         try {
             Field field = R.drawable.class.getField("area_" + item.getId());
@@ -159,8 +159,10 @@ class AreaAdapter extends BaseAdapter {
             //view.setBackground(ContextCompat.getDrawable(context, R.drawable.border_oval_active));
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
             layoutParams.setMargins(5, 5, 5, 5);
+
+
             //imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_lotus_active));
-            textView.setTextColor(view.getResources().getColor(R.color.colorBase));
+            //textView.setTextColor(view.getResources().getColor(R.color.colorBase));
 
 
             MultiTransformation multi = new MultiTransformation(

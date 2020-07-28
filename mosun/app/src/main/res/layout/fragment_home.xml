@@ -24,7 +24,7 @@
             app:sliderIndicatorOrientation="horizontal"
             app:sliderIndicatorPadding="3dp"
             app:sliderIndicatorRadius="2dp"
-            app:sliderIndicatorSelectedColor="@color/colorBaseCyan"
+            app:sliderIndicatorSelectedColor="@color/colorBaseQeenblue"
             app:sliderIndicatorUnselectedColor="#FFF"
             app:sliderScrollTimeInSec="5"
             app:sliderStartAutoCycle="true" />
@@ -69,7 +69,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/margin_normal"
             android:text="지역 선택"
-            android:textColor="@color/colorBaseCyan"
+            android:textColor="@color/colorBaseQeenblue"
             android:textSize="20sp" />
 
         <ScrollView

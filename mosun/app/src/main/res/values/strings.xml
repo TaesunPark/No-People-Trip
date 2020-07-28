@@ -4,12 +4,14 @@
     <string name="textview">TextView</string>
 
 
+    <string name="my_course"><u>나의스탬프</u></string>
     <string name="sort_seoul"><u>서울스탬프</u></string>
     <string name="sort_daejeon"><u>대전스탬프</u></string>
     <string name="sort_gyeongju"><u>경주스탬프</u></string>
 
 
     <string-array name="sort_type">
+        <item>내 코스</item>
         <item>서울</item>
         <item>대전</item>
         <item>경주</item>

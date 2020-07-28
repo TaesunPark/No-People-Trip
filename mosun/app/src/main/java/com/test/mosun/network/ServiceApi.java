@@ -2,6 +2,8 @@ package com.test.mosun.network;
 
 import com.test.mosun.data.LoginData;
 import com.test.mosun.data.LoginResponse;
+import com.test.mosun.data.QRData;
+import com.test.mosun.data.QRResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,4 +21,7 @@ public interface ServiceApi {
 
 //    @POST("/map")
 //    Call<>
+
+    @POST("/user/qrscan")
+    Call<QRResponse> qrScan(@Body QRData data);
 }

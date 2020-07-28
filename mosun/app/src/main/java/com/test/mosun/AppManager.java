@@ -2,13 +2,15 @@ package com.test.mosun;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.test.mosun.qrcode.QRPopupActivity;
+import com.test.mosun.stamp.TourList;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AppManager {
     private static AppManager instance = null;
-    private List<areaItem> list;
-
+    private List<areaItem> arealist;
+    private ArrayList<TourList> tourList;
     private AppManager() {
     }
 
@@ -18,10 +20,17 @@ public class AppManager {
         return instance;
     }
     public List<areaItem> getAreaList() {
-        return list;
+        return arealist;
     }
-    public void setAreaList(List<areaItem> list) {
-        this.list = list;
+    public void setAreaList(List<areaItem> arealist) {
+        this.arealist = arealist;
+    }
+
+    public ArrayList<TourList> getTourLsit() {
+        return tourList;
+    }
+    public void setTourList(ArrayList<TourList> tourList) {
+        this.tourList = tourList;
     }
 
     private String userId = null;

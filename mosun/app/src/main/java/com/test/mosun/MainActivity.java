@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.test.mosun.information.Fragment_Reward;
 import com.test.mosun.login.LoginActivity;
 import com.test.mosun.map.Fragment_Map;
 import com.test.mosun.qrcode.QRPopupActivity;
+import com.test.mosun.stamp.Fragment_Stamp;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
@@ -26,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Fragment_Home fragment_Home;
     private Fragment_Map fragment_Map;
+    private Fragment_Stamp fragment_Stamp;
+    private Fragment_Reward fragment_Reward;
+
 
     private CurveBottomBar curveBottomBar;
     FloatingActionButton floatingActionButton;
@@ -98,23 +103,54 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().attach(fragment_Home).commit();
                     if (fragment_Map != null)
                         fragmentManager.beginTransaction().hide(fragment_Map).commit();
-//                    if (fragment_Plant_Book != null)
-//                        fragmentManager.beginTransaction().detach(fragment_Plant_Book).commit();
-//                    if (fragment_Information != null)
-//                        fragmentManager.beginTransaction().detach(fragment_Information).commit();
+                    if (fragment_Stamp != null)
+                        fragmentManager.beginTransaction().detach(fragment_Stamp).commit();
+                    if (fragment_Reward != null)
+                        fragmentManager.beginTransaction().detach(fragment_Reward).commit();
                     break;
                 case R.id.map:
                     if (fragment_Map == null) {
-                        fragment_Map = Fragment_Map.newInstance();
+                        fragment_Map = fragment_Map.newInstance();
                         fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Map, "map").commit();
                     }
                     if (fragment_Home != null)
                         fragmentManager.beginTransaction().detach(fragment_Home).commit();
                     if (fragment_Map != null)
                         fragmentManager.beginTransaction().show(fragment_Map).commit();
+                    if (fragment_Stamp != null)
+                        fragmentManager.beginTransaction().detach(fragment_Stamp).commit();
+                    if (fragment_Reward != null)
+                        fragmentManager.beginTransaction().detach(fragment_Reward).commit();
+                    break;
+                case R.id.stamp_book:
+                    if (fragment_Stamp == null) {
+                        fragment_Stamp = fragment_Stamp.newInstance();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Stamp, "stamp").commit();
+                    }
+                    if (fragment_Home != null)
+                        fragmentManager.beginTransaction().detach(fragment_Home).commit();
+                    if (fragment_Map != null)
+                        fragmentManager.beginTransaction().hide(fragment_Map).commit();
+                    if (fragment_Stamp != null)
+                        fragmentManager.beginTransaction().attach(fragment_Stamp).commit();
+                    if (fragment_Reward != null)
+                        fragmentManager.beginTransaction().detach(fragment_Reward).commit();
+                    break;
 
-//
-//                    break;
+                case R.id.information:
+                    if (fragment_Reward == null) {
+                        fragment_Reward = fragment_Reward.newInstance();
+                        fragmentManager.beginTransaction().add(R.id.frame_container, fragment_Reward, "reward").commit();
+                    }
+                    if (fragment_Home != null)
+                        fragmentManager.beginTransaction().detach(fragment_Home).commit();
+                    if (fragment_Map != null)
+                        fragmentManager.beginTransaction().hide(fragment_Map).commit();
+                    if (fragment_Stamp != null)
+                        fragmentManager.beginTransaction().detach(fragment_Stamp).commit();
+                    if (fragment_Reward != null)
+                        fragmentManager.beginTransaction().attach(fragment_Reward).commit();
+                    break;
 
             }
             return true;

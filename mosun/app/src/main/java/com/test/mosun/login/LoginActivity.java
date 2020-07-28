@@ -28,10 +28,12 @@ import com.test.mosun.data.LoginData;
 import com.test.mosun.data.LoginResponse;
 import com.test.mosun.network.RetrofitClient;
 import com.test.mosun.network.ServiceApi;
+import com.test.mosun.stamp.TourList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,27 +97,39 @@ public class LoginActivity extends Activity {
         initData();
         initView();
 
-        Button button = (Button) findViewById(R.id.nextButton);
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                onSaveAreaData();
-                finish();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+        //데이타 로딩
+        onSaveAreaData();
+        onSaveTourListData();
+
+
+//        Button button = (Button) findViewById(R.id.nextButton);
+//        button.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                finish();
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         mOAuthLoginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Log.i("onButtonClick","들어옴");
+                mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
+                Log.i("onButtonClick","들어옴");
+
                 new RequestApiTask().execute();
+
+                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 //startLogin(new LoginData(id,age,gender,email,name,birthday));
                 //startLogin(loginData);
             }
         });
         this.setTitle("OAuthLoginSample Ver." + OAuthLogin.getVersion());
+
     }
 
 
@@ -211,43 +225,44 @@ public class LoginActivity extends Activity {
     };
 
 
-    public void onButtonClick(View v) throws Throwable {
-
-        switch (v.getId()) {
-            case R.id.buttonOAuthLoginImg: {
-                mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
-                Log.i("onButtonClick","들어옴");
-                new RequestApiTask().execute();
-                break;
-            }
-            case R.id.nextButton: {
-                Log.i("nextButton","들어옴");
-                Intent intent = new Intent(LoginActivity.this, AreaActivity.class);
-                startActivity(intent);
-                break;
-            }
-//            case R.id.buttonVerifier: {
+//    public void onButtonClick(View v) throws Throwable {
+//
+//        switch (v.getId()) {
+//            case R.id.buttonOAuthLoginImg: {
+//                mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
+//                Log.i("onButtonClick","들어옴");
 //                new RequestApiTask().execute();
-//                //startLogin(loginData);
+//
 //                break;
 //            }
-//            case R.id.buttonRefresh: {
-//                new RefreshTokenTask().execute();
+//            case R.id.nextButton: {
+//                Log.i("nextButton","들어옴");
+//                Intent intent = new Intent(LoginActivity.this, AreaActivity.class);
+//                startActivity(intent);
 //                break;
 //            }
-//            case R.id.buttonOAuthLogout: {
-//                mOAuthLoginInstance.logout(mContext);
-//                updateView();
+////            case R.id.buttonVerifier: {
+////                new RequestApiTask().execute();
+////                //startLogin(loginData);
+////                break;
+////            }
+////            case R.id.buttonRefresh: {
+////                new RefreshTokenTask().execute();
+////                break;
+////            }
+////            case R.id.buttonOAuthLogout: {
+////                mOAuthLoginInstance.logout(mContext);
+////                updateView();
+////                break;
+////            }
+////            case R.id.buttonOAuthDeleteToken: {
+////                new DeleteTokenTask().execute();
+////                break;
+////            }
+//            default:
 //                break;
-//            }
-//            case R.id.buttonOAuthDeleteToken: {
-//                new DeleteTokenTask().execute();
-//                break;
-//            }
-            default:
-                break;
-        }
-    }
+//        }
+//    }
 
 
     private class DeleteTokenTask extends AsyncTask<Void, Void, Void> {
@@ -386,6 +401,36 @@ public class LoginActivity extends Activity {
         list.add(new areaItem(0,"area_0","서울"));
         list.add(new areaItem(0,"area_1","경주"));
         AppManager.getInstance().setAreaList(list);
+    }
+
+    public void onSaveTourListData()
+    {
+        ArrayList<TourList> list;
+        list = new ArrayList<>();
+        list.add(new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24));
+        list.add(new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24));
+        list.add(new TourList("첨성대", "첨성대 기무띠", "700m 전","123,421 명",R.drawable.ic_baseline_map_24));
+        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24));
+        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24));
+        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24));
+        AppManager.getInstance().setTourList(list);
+//        TourList data = new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24);
+//        //int imageResourceID, String tourTitle, String tourDescription, String distance, String numericalValue, int imageNumericalValueID
+//        adapter.addItem(data);
+//        data = new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24);
+//        adapter.addItem(data);
+//        data = new TourList("첨성대", "첨성대 기무띠", "700m 전","123,421 명",R.drawable.ic_baseline_map_24);
+//        adapter.addItem(data);
+//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+//        adapter.addItem(data);
+//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+//        adapter.addItem(data);
+//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+//        adapter.addItem(data);
+//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+//        adapter.addItem(data);
+//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
+//        adapter.addItem(data);
     }
 
 
