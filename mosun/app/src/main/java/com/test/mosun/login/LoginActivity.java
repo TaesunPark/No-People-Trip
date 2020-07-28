@@ -82,7 +82,6 @@ public class LoginActivity extends Activity {
     Session session;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,18 +111,18 @@ public class LoginActivity extends Activity {
 //            }
 //        });
 
-        mOAuthLoginButton.setOnClickListener(new View.OnClickListener(){
+        mOAuthLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Log.i("onButtonClick","들어옴");
+            public void onClick(View v) {
+                Log.i("onButtonClick", "들어옴");
                 mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
-                Log.i("onButtonClick","들어옴");
+                Log.i("onButtonClick", "들어옴");
 
                 new RequestApiTask().execute();
 
-                finish();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+//                finish();
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
                 //startLogin(new LoginData(id,age,gender,email,name,birthday));
                 //startLogin(loginData);
             }
@@ -296,7 +295,7 @@ public class LoginActivity extends Activity {
             String url = "https://openapi.naver.com/v1/nid/me";
             String at = mOAuthLoginInstance.getAccessToken(mContext);
             String data = mOAuthLoginInstance.requestApi(mContext, at, url);
-            try{
+            try {
                 JSONObject result = new JSONObject(data);
                 String id = result.getJSONObject("response").getString("id");
                 String age = result.getJSONObject("response").getString("age");
@@ -305,14 +304,14 @@ public class LoginActivity extends Activity {
                 String name = result.getJSONObject("response").getString("name");
                 String birthday = result.getJSONObject("response").getString("birthday");
 
-                Log.i("id",id);
-                Log.i("age",age);
-                Log.i("gender",gender);
-                Log.i("email",email);
-                Log.i("name",name);
-                Log.i("birthday",birthday);
+                Log.i("id", id);
+                Log.i("age", age);
+                Log.i("gender", gender);
+                Log.i("email", email);
+                Log.i("name", name);
+                Log.i("birthday", birthday);
 
-                startLogin(new LoginData(id,age,gender,email,name,birthday));
+                startLogin(new LoginData(id, age, gender, email, name, birthday));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -337,7 +336,6 @@ public class LoginActivity extends Activity {
     }
 
 
-
     private void startLogin(LoginData data) {
 
 
@@ -348,17 +346,17 @@ public class LoginActivity extends Activity {
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 //Log.i("userId",Integer.toString(result.getUserId()));
 
-                Log.i("startLogin","존재하지 않는 계정");
-                if(result.getMessage().startsWith("존재하지"))//존재하지 않는 계정이면 insert
+                Log.i("startLogin", "존재하지 않는 계정");
+                if (result.getMessage().startsWith("존재하지"))//존재하지 않는 계정이면 insert
                 {
-                    Log.i("startLogin","들어왔쥬");
+                    Log.i("startLogin", "들어왔쥬");
                     startInsert(data);
                 }
 
-                if(Integer.toString(result.getUserId()).equals(data.getUserId())){
-                    Log.i("startLogin","같음"+result.getUserId());
+                if (Integer.toString(result.getUserId()).equals(data.getUserId())) {
+                    Log.i("startLogin", "같음" + result.getUserId());
                     AppManager.getInstance().setUserID(Integer.toString(result.getUserId()));
-
+                    goToNextActivity();
                 }
             }
 
@@ -371,6 +369,7 @@ public class LoginActivity extends Activity {
             }
         });
     }
+
     private void startInsert(LoginData data) {
 
 
@@ -379,8 +378,8 @@ public class LoginActivity extends Activity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse result = response.body();
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.i("userId",Integer.toString(result.getUserId()));
-               // Log.i("startLogin","존재하지 않는 계정");
+                Log.i("userId", Integer.toString(result.getUserId()));
+                // Log.i("startLogin","존재하지 않는 계정");
 
 
             }
@@ -395,24 +394,29 @@ public class LoginActivity extends Activity {
         });
     }
 
-    public void onSaveAreaData(){
+    public void goToNextActivity() {
+        finish();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void onSaveAreaData() {
         ArrayList<areaItem> list;
         list = new ArrayList<>();
-        list.add(new areaItem(0,"area_0","서울"));
-        list.add(new areaItem(0,"area_1","경주"));
+        list.add(new areaItem(0, "area_0", "서울"));
+        list.add(new areaItem(0, "area_1", "경주"));
         AppManager.getInstance().setAreaList(list);
     }
 
-    public void onSaveTourListData()
-    {
+    public void onSaveTourListData() {
         ArrayList<TourList> list;
         list = new ArrayList<>();
-        list.add(new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24));
-        list.add(new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24));
-        list.add(new TourList("첨성대", "첨성대 기무띠", "700m 전","123,421 명",R.drawable.ic_baseline_map_24));
-        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24));
-        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24));
-        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24));
+        list.add(new TourList("석굴암", "부처님 석상 기무띠", "500m 전", "12,341 명", R.drawable.ic_baseline_map_24));
+        list.add(new TourList("석굴암", "부처님 석상 기무띠", "500m 전", "12,341 명", R.drawable.ic_baseline_map_24));
+        list.add(new TourList("첨성대", "첨성대 기무띠", "700m 전", "123,421 명", R.drawable.ic_baseline_map_24));
+        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전", "124,341 명", R.drawable.ic_baseline_map_24));
+        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전", "124,341 명", R.drawable.ic_baseline_map_24));
+        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전", "124,341 명", R.drawable.ic_baseline_map_24));
         AppManager.getInstance().setTourList(list);
 //        TourList data = new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24);
 //        //int imageResourceID, String tourTitle, String tourDescription, String distance, String numericalValue, int imageNumericalValueID

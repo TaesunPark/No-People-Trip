@@ -2,7 +2,9 @@ package com.test.mosun.data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class QRData {
+import java.io.Serializable;
+
+public class QRData implements Serializable {
 
     @SerializedName("qr_id")
     String qr_id;

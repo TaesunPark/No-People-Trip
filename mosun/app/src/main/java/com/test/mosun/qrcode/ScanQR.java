@@ -11,8 +11,10 @@ import com.test.mosun.data.LoginResponse;
 import com.test.mosun.data.QRData;
 import com.test.mosun.data.QRResponse;
 import com.test.mosun.login.LoginActivity;
+import com.test.mosun.network.RetrofitClient;
 import com.test.mosun.network.ServiceApi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,17 +31,20 @@ public class ScanQR extends AppCompatActivity {
 
     private IntentIntegrator qrScan;
     private ServiceApi service;
+    private Activity thisActivity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_qr);
 
+        service = RetrofitClient.getClient().create(ServiceApi.class);
         qrScan = new IntentIntegrator(this);
         qrScan.setBeepEnabled(false);
         qrScan.setOrientationLocked(false); // default가 세로모드인데 휴대폰 방향에 따라 가로, 세로로 자동 변경됩니다.
         qrScan.setPrompt("관광지의 QR코드를 스캔하세요.");
         qrScan.initiateScan();
+
     }
 
     @Override
@@ -68,9 +73,9 @@ public class ScanQR extends AppCompatActivity {
                     //앱매니저 호출해서 스탬프 값 저장
 
                     //서버에 qrnum 올리기
-                    //checkAndUploadQRNum(new QRData(qr_id));
+//                    checkAndUploadQRNum(new QRData(qr_id));
                     finish();//화면 종료
-
+                    //goToActivity(new QRData(qr_id));
                     checkAndUploadQRNum(new QRData(qr_id));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -88,8 +93,13 @@ public class ScanQR extends AppCompatActivity {
 
 
 
+    private void goToActivity(QRData data)
+    {
+        Intent intent = new Intent(thisActivity, QRNetworkActivity.class);
+        intent.putExtra("qrdata",data);
+        startActivity(intent);
+    }
     private void checkAndUploadQRNum(QRData data) {
-
 
         service.qrScan(data).enqueue(new Callback<QRResponse>() {
             @Override
@@ -111,4 +121,5 @@ public class ScanQR extends AppCompatActivity {
             }
         });
     }
+
 }
