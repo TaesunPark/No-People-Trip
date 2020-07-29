@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">mosun</string>
+    <string name="kakao_app_key">a49d0aee89e6d3b024f30782fe45ea10</string>
+
+
+    <string-array name="sort_type">
+        <item>내 코스</item>
+        <item>서울</item>
+        <item>대전</item>
+        <item>경주</item>
+    </string-array>
+</resources>
