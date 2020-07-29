@@ -108,9 +108,10 @@ public class ScanQR extends AppCompatActivity {
             public void onResponse(Call<QRResponse> call, Response<QRResponse> response) {
                 QRResponse result = response.body();
                 //Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.i("qr_id",result.getQRID());
-                // Log.i("startLogin","존재하지 않는 계정");
+                //Log.i("qr_num",result.getQRNum());
+                 Log.i("startLogin",result.getMessage());
 
+                 //스탬프를 오늘 찍었는지 확인
 
             }
 

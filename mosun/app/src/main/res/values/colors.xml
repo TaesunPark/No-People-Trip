@@ -4,6 +4,13 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <!--최종색상표-->
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorSlateGray">#708090</color>
+    <color name="colorLightBlue">#add8e6</color>
+    <color name="colorkhaki">#f0e68c</color>
+    <color name="colorLightSlateGray">#778899</color>
+
     <!--색상표 ( 가장 밝은 것부터 어두운 것의 순서-->
     <color name="colorBase1">#84b9e4</color>
     <color name="colorBase2">#436B95</color>
@@ -30,7 +37,7 @@
     <color name="colorTransparent">#00FF0000</color>
 
     <color name="colorCardView">#E7FF91</color>
-    <color name="colorWhite">#FFFFFF</color>
+
     <color name="colorBanner">#CCFAFFFA</color>
     <color name="colorBlack">#000000</color>
 

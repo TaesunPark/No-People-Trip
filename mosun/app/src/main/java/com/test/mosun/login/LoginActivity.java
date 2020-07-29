@@ -4,18 +4,33 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.callback.UnLinkResponseCallback;
+import com.kakao.usermgmt.response.MeV2Response;
+import com.kakao.usermgmt.response.model.Profile;
+import com.kakao.usermgmt.response.model.UserAccount;
+import com.kakao.util.OptionalBoolean;
+import com.kakao.util.exception.KakaoException;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
@@ -41,15 +56,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/// 네이버 아이디로 로그인 샘플앱
-
-/**
- * <br/> OAuth2.0 인증을 통해 Access Token을 발급받는 예제, 연동해제하는 예제,
- * <br/> 발급된 Token을 활용하여 Get 등의 명령을 수행하는 예제, 네아로 커스터마이징 버튼을 사용하는 예제 등이 포함되어 있다.
+/** 로그인 액티비티
+ *  네이버 및 카카오 로그인
  *
- * @author naver
+ *  [해야 하는 것]
+ *  로딩액티비티 만들고 로그인 되어있으면 바로 로그인 버튼 없이 mainActivity 로 가게 만들기
+ *  네이버나 카카오 계정이 없는 경우
+ *  동의 항목을 선택 해제 하는 경우 > 다시 동의 받는 부분
+ *  핸드폰 번호 얻는 부분
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity  {
 
     private static final String TAG = "OAuthSampleActivity";
 
@@ -74,65 +90,136 @@ public class LoginActivity extends Activity {
     private static TextView mOauthTokenType;
     private static TextView mOAuthState;
 
+    /** 로그인 요소 **/
     private OAuthLoginButton mOAuthLoginButton;
-
     private ServiceApi service;
-    private LoginData loginData;
-    private SessionCallback sessionCallback = new SessionCallback();
+    //private SessionCallback sessionCallback = new SessionCallback();
     Session session;
+
+
+    /** 애니메이션 요소 **/
+    Animation translateUp;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setStatusBar();// 상태바 색상 설정
 
-        //service = RetrofitClient.getClient().create(ServiceApi.class);
 
+
+        //카카오 로그인 데이터
         session = Session.getCurrentSession();
         session.addCallback(sessionCallback);
-        mContext = this;
 
+
+
+        //session.checkAndImplicitOpen();//로그인 세션을 열린채로 유지
+
+        //네이버 로그인 데이터 & 뷰 초기화
+        mContext = this;
         initData();
         initView();
 
-        //데이타 로딩
-        onSaveAreaData();
-        onSaveTourListData();
+        //데이타 로딩 > 나중에 로딩 액티비티로 옮기기
+//        onSaveAreaData();
+//        onSaveTourListData();
 
+        //애니메이션 설정
+        setAnimation();
 
-//        Button button = (Button) findViewById(R.id.nextButton);
-//        button.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                finish();
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
-        mOAuthLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("onButtonClick", "들어옴");
-                mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
-                Log.i("onButtonClick", "들어옴");
-
-                new RequestApiTask().execute();
-
-//                finish();
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-                //startLogin(new LoginData(id,age,gender,email,name,birthday));
-                //startLogin(loginData);
-            }
-        });
-        this.setTitle("OAuthLoginSample Ver." + OAuthLogin.getVersion());
-
+        // 버튼 이벤트 설정
+        findViewById(R.id.nextButton).setOnClickListener(btnClickListener);
+        findViewById(R.id.buttonOAuthLoginImg).setOnClickListener(btnClickListener);
+        findViewById(R.id.btn_kakao_login).setOnClickListener(btnClickListener);
     }
 
 
-    //ondestroy~onActivityResult >> 카카오 로그인
+
+
+    /***** 카카오 로그인 *****/
+    private ISessionCallback sessionCallback = new ISessionCallback() {
+        @Override
+        public void onSessionOpened() {
+            Log.i("KAKAO_SESSION", "로그인 성공");
+            requestMe();
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
+            Log.e("KAKAO_SESSION", "로그인 실패", exception);
+        }
+        public void requestMe() {
+            UserManagement.getInstance()
+                    .me(new MeV2ResponseCallback() {
+                        @Override
+                        public void onSessionClosed(ErrorResult errorResult) {
+                            Log.e("KAKAO_API", "세션이 닫혀 있음: " + errorResult);
+                        }
+
+                        @Override
+                        public void onFailure(ErrorResult errorResult) {
+                            Log.e("KAKAO_API", "사용자 정보 요청 실패: " + errorResult);
+                        }
+
+                        @Override
+                        public void onSuccess(MeV2Response result) {
+                            UserAccount kakaoAccount = result.getKakaoAccount();
+                            Profile profile = kakaoAccount.getProfile();
+
+                            String user_id;
+                            String user_email = "null";
+                            String user_age = "null";
+                            String user_gender = "null";
+                            String user_birthday = "null";
+                            String user_name = "null";
+
+                            user_id = Long.toString(result.getId());
+                            Log.i("KAKAO_API", "사용자 아이디: " + result.getId());
+
+
+
+                            //if-else 문으로 선택 처리
+                            if (kakaoAccount.hasEmail() == OptionalBoolean.TRUE) {
+                                Log.i("KAKAO_API", "사용자 이메일: " + result.getKakaoAccount().getEmail());
+                                user_email = kakaoAccount.getEmail();
+                            }
+
+                            if (result.getKakaoAccount().hasAgeRange() == OptionalBoolean.TRUE) {
+                                Log.i("KAKAO_API", "사용자 나이대: " + result.getKakaoAccount().getAgeRange().getValue());
+                                user_age = kakaoAccount.getAgeRange().getValue();
+
+                            }
+
+                            if (result.getKakaoAccount().hasGender() == OptionalBoolean.TRUE) {
+                                Log.i("KAKAO_API", "사용자 성별: " + result.getKakaoAccount().getGender().getValue());
+                                user_gender = kakaoAccount.getGender().getValue();
+
+                            }
+
+
+                            if (result.getKakaoAccount().hasBirthday() == OptionalBoolean.TRUE) {
+                                Log.i("KAKAO_API", "사용자 생일: " + result.getKakaoAccount().getBirthday());
+                                user_birthday = kakaoAccount.getBirthday();
+
+                            }
+
+
+                            Log.i("KAKAO_API", "사용자 닉네임: " + result.getKakaoAccount().getProfile().getNickname());
+                            user_name = kakaoAccount.getProfile().getNickname();
+
+
+                            startLogin(new LoginData(user_id, user_age, user_gender, user_email, user_name, user_birthday,"kakao"));
+
+
+                        }
+                    });
+        }
+
+
+    };
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -145,13 +232,48 @@ public class LoginActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+
             return;
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void kakaoLogOut() {
+        UserManagement.getInstance()
+                .requestLogout(new LogoutResponseCallback() {
+                    @Override
+                    public void onCompleteLogout() {
+                        Log.i("KAKAO_API", "로그아웃 완료");
+                    }
+                });
+    }
 
+    protected void SessionClose() {
+        UserManagement.getInstance()
+                .requestUnlink(new UnLinkResponseCallback() {
+                    @Override
+                    public void onSessionClosed(ErrorResult errorResult) {
+                        Log.e("KAKAO_API", "세션이 닫혀 있음: " + errorResult);
+                    }
+
+                    @Override
+                    public void onFailure(ErrorResult errorResult) {
+                        Log.e("KAKAO_API", "연결 끊기 실패: " + errorResult);
+
+                    }
+
+                    @Override
+                    public void onSuccess(Long result) {
+                        Log.i("KAKAO_API", "연결 끊기 성공. id: " + result);
+                    }
+                });
+    }
+
+
+
+
+    /***** 네이버 로그인 *****/
     private void initData() {
         mOAuthLoginInstance = OAuthLogin.getInstance();
 
@@ -166,29 +288,19 @@ public class LoginActivity extends Activity {
     }
 
     private void initView() {
-//        mApiResultText = (TextView) findViewById(R.id.api_result_text);
-//
-//        mOauthAT = (TextView) findViewById(R.id.oauth_access_token);
-//        mOauthRT = (TextView) findViewById(R.id.oauth_refresh_token);
-//        mOauthExpires = (TextView) findViewById(R.id.oauth_expires);
-//        mOauthTokenType = (TextView) findViewById(R.id.oauth_type);
-//        mOAuthState = (TextView) findViewById(R.id.oauth_state);
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
         mOAuthLoginButton = (OAuthLoginButton) findViewById(R.id.buttonOAuthLoginImg);
         mOAuthLoginButton.setOAuthLoginHandler(mOAuthLoginHandler);
 
-        //updateView();
+
     }
 
-
-    private void updateView() {
-        mOauthAT.setText(mOAuthLoginInstance.getAccessToken(mContext));
-        mOauthRT.setText(mOAuthLoginInstance.getRefreshToken(mContext));
-        mOauthExpires.setText(String.valueOf(mOAuthLoginInstance.getExpiresAt(mContext)));
-        mOauthTokenType.setText(mOAuthLoginInstance.getTokenType(mContext));
-        mOAuthState.setText(mOAuthLoginInstance.getState(mContext).toString());
+    private void naverLogout()
+    {
+        mOAuthLoginInstance.logout(mContext);
     }
+
 
     @Override
     protected void onResume() {
@@ -209,11 +321,7 @@ public class LoginActivity extends Activity {
                 String refreshToken = mOAuthLoginInstance.getRefreshToken(mContext);
                 long expiresAt = mOAuthLoginInstance.getExpiresAt(mContext);
                 String tokenType = mOAuthLoginInstance.getTokenType(mContext);
-                //mOauthAT.setText(accessToken);
-                //mOauthRT.setText(refreshToken);
-                //mOauthExpires.setText(String.valueOf(expiresAt));
-                //mOauthTokenType.setText(tokenType);
-                //mOAuthState.setText(mOAuthLoginInstance.getState(mContext).toString());
+
             } else {
                 String errorCode = mOAuthLoginInstance.getLastErrorCode(mContext).getCode();
                 String errorDesc = mOAuthLoginInstance.getLastErrorDesc(mContext);
@@ -223,45 +331,36 @@ public class LoginActivity extends Activity {
 
     };
 
+    private Button.OnClickListener btnClickListener = new View.OnClickListener() {
 
-//    public void onButtonClick(View v) throws Throwable {
-//
-//        switch (v.getId()) {
-//            case R.id.buttonOAuthLoginImg: {
-//                mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
-//                Log.i("onButtonClick","들어옴");
-//                new RequestApiTask().execute();
-//
-//                break;
-//            }
-//            case R.id.nextButton: {
-//                Log.i("nextButton","들어옴");
-//                Intent intent = new Intent(LoginActivity.this, AreaActivity.class);
-//                startActivity(intent);
-//                break;
-//            }
-////            case R.id.buttonVerifier: {
-////                new RequestApiTask().execute();
-////                //startLogin(loginData);
-////                break;
-////            }
-////            case R.id.buttonRefresh: {
-////                new RefreshTokenTask().execute();
-////                break;
-////            }
-////            case R.id.buttonOAuthLogout: {
-////                mOAuthLoginInstance.logout(mContext);
-////                updateView();
-////                break;
-////            }
-////            case R.id.buttonOAuthDeleteToken: {
-////                new DeleteTokenTask().execute();
-////                break;
-////            }
-//            default:
-//                break;
-//        }
-//    }
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()) {
+                case R.id.nextButton:
+                    Log.i("btnClickListener", "다음 버튼 누름");
+                    kakaoLogOut();
+                    naverLogout();
+                    SessionClose(); // 카카오 연동 끊기
+                    new DeleteTokenTask().execute();// 네이버 연동 끊기
+
+
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    break;
+
+
+                case R.id.buttonOAuthLoginImg:
+                    mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
+                    Log.i("btnClickListener", "네이버 로그인 버튼 누름");
+                    new RequestApiTask().execute();
+                    break;
+
+
+            }
+        }
+    };
+
 
 
     private class DeleteTokenTask extends AsyncTask<Void, Void, Void> {
@@ -279,9 +378,9 @@ public class LoginActivity extends Activity {
             return null;
         }
 
-        protected void onPostExecute(Void v) {
-            updateView();
-        }
+//        protected void onPostExecute(Void v) {
+//            updateView();
+//        }
     }
 
     private class RequestApiTask extends AsyncTask<Void, Void, String> {
@@ -311,7 +410,7 @@ public class LoginActivity extends Activity {
                 Log.i("name", name);
                 Log.i("birthday", birthday);
 
-                startLogin(new LoginData(id, age, gender, email, name, birthday));
+                startLogin(new LoginData(id, age, gender, email, name, birthday,"naver"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -330,34 +429,43 @@ public class LoginActivity extends Activity {
             return mOAuthLoginInstance.refreshAccessToken(mContext);
         }
 
-        protected void onPostExecute(String res) {
-            updateView();
-        }
+//        protected void onPostExecute(String res) {
+//            updateView();
+//        }
     }
 
 
-    private void startLogin(LoginData data) {
+    /***** 액티비티 꾸미기용 *****/
+    private void setAnimation()
+    {
+        translateUp = AnimationUtils.loadAnimation(this, R.anim.slide_up_activity);
+        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.main_layout);
+        mainLayout.startAnimation(translateUp);
+        mainLayout.setVisibility(View.VISIBLE);
+    }
 
+    private void setStatusBar()
+    {
+        //상태 바 색 바꿔줌
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.parseColor("#add8e6"));
+        AppManager.getInstance().setLoginActivity(this);
+    }
+
+
+    /****** 서버에 데이터 보내기 *****/
+    protected void startLogin(LoginData data) {
 
         service.userLogin(data).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse result = response.body();
                 Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                //Log.i("userId",Integer.toString(result.getUserId()));
 
-                Log.i("startLogin", "존재하지 않는 계정");
-                if (result.getMessage().startsWith("존재하지"))//존재하지 않는 계정이면 insert
-                {
-                    Log.i("startLogin", "들어왔쥬");
-                    startInsert(data);
-                }
-
-                if (Integer.toString(result.getUserId()).equals(data.getUserId())) {
-                    Log.i("startLogin", "같음" + result.getUserId());
-                    AppManager.getInstance().setUserID(Integer.toString(result.getUserId()));
-                    goToNextActivity();
-                }
+                Log.i("startLogin", "들어옴");
+                AppManager.getInstance().setUserID(Integer.toString(result.getUserId()));
+                goToNextActivity();
             }
 
 
@@ -370,29 +478,7 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private void startInsert(LoginData data) {
 
-
-        service.userInsert(data).enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse result = response.body();
-                Toast.makeText(LoginActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.i("userId", Integer.toString(result.getUserId()));
-                // Log.i("startLogin","존재하지 않는 계정");
-
-
-            }
-
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
-                Log.e("로그인 에러 발생", t.getMessage());
-
-            }
-        });
-    }
 
     public void goToNextActivity() {
         finish();
@@ -400,42 +486,10 @@ public class LoginActivity extends Activity {
         startActivity(intent);
     }
 
-    public void onSaveAreaData() {
-        ArrayList<areaItem> list;
-        list = new ArrayList<>();
-        list.add(new areaItem(0, "area_0", "서울"));
-        list.add(new areaItem(0, "area_1", "경주"));
-        AppManager.getInstance().setAreaList(list);
-    }
 
-    public void onSaveTourListData() {
-        ArrayList<TourList> list;
-        list = new ArrayList<>();
-        list.add(new TourList("석굴암", "부처님 석상 기무띠", "500m 전", "12,341 명", R.drawable.ic_baseline_map_24));
-        list.add(new TourList("석굴암", "부처님 석상 기무띠", "500m 전", "12,341 명", R.drawable.ic_baseline_map_24));
-        list.add(new TourList("첨성대", "첨성대 기무띠", "700m 전", "123,421 명", R.drawable.ic_baseline_map_24));
-        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전", "124,341 명", R.drawable.ic_baseline_map_24));
-        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전", "124,341 명", R.drawable.ic_baseline_map_24));
-        list.add(new TourList("강감찬 동상", "강감찬 기무띠", "800m 전", "124,341 명", R.drawable.ic_baseline_map_24));
-        AppManager.getInstance().setTourList(list);
-//        TourList data = new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24);
-//        //int imageResourceID, String tourTitle, String tourDescription, String distance, String numericalValue, int imageNumericalValueID
-//        adapter.addItem(data);
-//        data = new TourList("석굴암", "부처님 석상 기무띠", "500m 전","12,341 명",R.drawable.ic_baseline_map_24);
-//        adapter.addItem(data);
-//        data = new TourList("첨성대", "첨성대 기무띠", "700m 전","123,421 명",R.drawable.ic_baseline_map_24);
-//        adapter.addItem(data);
-//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
-//        adapter.addItem(data);
-//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
-//        adapter.addItem(data);
-//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
-//        adapter.addItem(data);
-//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
-//        adapter.addItem(data);
-//        data = new TourList("강감찬 동상", "강감찬 기무띠", "800m 전","124,341 명",R.drawable.ic_baseline_map_24);
-//        adapter.addItem(data);
-    }
+
+
+
 
 
 }

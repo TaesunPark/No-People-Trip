@@ -16,11 +16,9 @@ public interface ServiceApi {
 //    @POST("/user/join")
 //    Call<JoinResponse> userJoin(@Body JoinData data);
 
-    @POST("/user/insert")
-    Call<LoginResponse> userInsert(@Body LoginData data);
+//    @POST("/user/insert")
+//    Call<LoginResponse> userInsert(@Body LoginData data);
 
-//    @POST("/map")
-//    Call<>
 
     @POST("/user/qrscan")
     Call<QRResponse> qrScan(@Body QRData data);

@@ -12,6 +12,9 @@ public class QRResponse {
     @SerializedName("qr_id")
     private String qr_id;
 
+    @SerializedName("qr_num")
+    private String qr_num;
+
     public int getCode() {
         return code;
     }
@@ -22,5 +25,9 @@ public class QRResponse {
 
     public String getQRID() {
         return qr_id;
+    }
+
+    public String getQRNum() {
+        return qr_num;
     }
 }

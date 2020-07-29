@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.test.mosun.information.Fragment_Reward;
 import com.test.mosun.login.LoginActivity;
+import com.test.mosun.map.Fragment_GoogleMap;
 import com.test.mosun.map.Fragment_Map;
 import com.test.mosun.qrcode.QRPopupActivity;
 import com.test.mosun.stamp.Fragment_Stamp;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
 
     private Fragment_Home fragment_Home;
-    private Fragment_Map fragment_Map;
+    private Fragment_GoogleMap fragment_Map;
     private Fragment_Stamp fragment_Stamp;
     private Fragment_Reward fragment_Reward;
 

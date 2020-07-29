@@ -2,9 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.test.mosun">
-
+    <!-- 권한추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- camera 접근권한 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 카메라 -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".login.GlobalApplication"
@@ -14,13 +20,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".qrcode.QRNetworkActivity"></activity>
-        <activity android:name=".stamp.DetailPopUpActivity" />
-        <activity android:name=".stamp.CourseSelectionActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" /> <!-- qr코드 액티비티 -->
+            android:value="@string/kakao_app_key" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDew9HN_8A_6EHs0faCJHsjgfkjjevjek4" /> <!-- 구글맵 api -->
+        <activity android:name=".loading.LoadingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- 액티비티 -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
@@ -29,20 +42,18 @@
         <activity android:name=".qrcode.CreateQR" />
         <activity
             android:name=".qrcode.QRPopupActivity"
-            android:theme="@style/PopUpTheme" /> <!-- 홈 액티비티 -->
+            android:theme="@style/PopUpTheme" />
         <activity
             android:name=".CoursePopupActivity"
             android:theme="@style/PopUpTheme" />
         <activity android:name=".MainActivity" />
         <activity android:name=".activity.CourseActivity" />
-        <activity android:name=".activity.AreaActivity" /> <!-- 로그인 액티비티 -->
-        <activity android:name=".login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.AreaActivity" />
+        <activity android:name=".stamp.CameraActivity" />
+        <activity android:name=".qrcode.QRNetworkActivity" />
+        <activity android:name=".stamp.DetailPopUpActivity" />
+        <activity android:name=".stamp.CourseSelectionActivity" />
+        <activity android:name=".login.LoginActivity"></activity>
     </application>
 
 </manifest>

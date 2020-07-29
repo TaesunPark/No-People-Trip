@@ -21,9 +21,11 @@ public class LoginData {
     String userName;
     @SerializedName("userBirthday")
     String userBirthday;
+    @SerializedName("sns")
+    String userSns;
 
     //id,age,gender,email,name,birthday
-    public LoginData(String userId, String userAge, String userGender, String userEmail, String userName, String userBirthday) {
+    public LoginData(String userId, String userAge, String userGender, String userEmail, String userName, String userBirthday, String userSns) {
 //        this.userEmail = userEmail;
 //        this.userPwd = userPwd;
         this.userId = userId;
@@ -32,6 +34,7 @@ public class LoginData {
         this.userEmail = userEmail;
         this.userName = userName;
         this.userBirthday = userBirthday;
+        this.userSns = userSns;
     }
     public String getUserId() {
         return userId;

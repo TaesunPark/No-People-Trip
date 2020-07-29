@@ -1,6 +1,7 @@
 package com.test.mosun;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.test.mosun.login.LoginActivity;
 import com.test.mosun.qrcode.QRPopupActivity;
 import com.test.mosun.stamp.TourList;
 
@@ -41,9 +42,13 @@ public class AppManager {
     public void setMenuFloatingActionButton (FloatingActionButton floatingActionButton) {this.floatingActionButton = floatingActionButton;}
     public FloatingActionButton getMenuFloatingActionButton() { return floatingActionButton; }
 
+    private LoginActivity loginActivity;
+    public void setLoginActivity(LoginActivity loginActivity) {this.loginActivity = loginActivity; }
+    public LoginActivity getLoginActivity(){ return  loginActivity; }
+
     private MainActivity mainActivity;
     public void setMainActivity(MainActivity mainActivity) {this.mainActivity = mainActivity; }
-    public MainActivity getMainActivity(){ return  mainActivity; }
+    public MainActivity getMainActivity(){ return  mainActivity;}
 
     private QRPopupActivity qrPopUpActivity;
     public void setQRPopUpActivity (QRPopupActivity qrPopUpActivity) {this.qrPopUpActivity = qrPopUpActivity; }
