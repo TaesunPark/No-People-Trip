@@ -61,23 +61,25 @@ public class Fragment_Home extends Fragment {
 
         Log.i("home","home");
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+//        View view = inflater.inflate(R.layout.fragment_home, container, false);
+//
+//        SliderView sliderView = view.findViewById(R.id.imageSlider);
+//        SliderAdapter sliderAdapter = new SliderAdapter(getContext());
+//        sliderView.setSliderAdapter(sliderAdapter);
+//
+//        sliderView.setIndicatorAnimation(IndicatorAnimations.COLOR);
+//        sliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
+//        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
+//        sliderView.startAutoCycle();
+//
+//        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
+//            @Override
+//            public void onIndicatorClicked(int position) {
+//                sliderView.setCurrentPagePosition(position);
+//            }
+//        });
 
-        SliderView sliderView = view.findViewById(R.id.imageSlider);
-        SliderAdapter sliderAdapter = new SliderAdapter(getContext());
-        sliderView.setSliderAdapter(sliderAdapter);
-
-        sliderView.setIndicatorAnimation(IndicatorAnimations.COLOR);
-        sliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
-        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
-        sliderView.startAutoCycle();
-
-        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
-            @Override
-            public void onIndicatorClicked(int position) {
-                sliderView.setCurrentPagePosition(position);
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_second_home, container, false);
 
         list = AppManager.getInstance().getAreaList();
         GridView gridView = view.findViewById(R.id.gridview_select_area);

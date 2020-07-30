@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@drawable/mosun_logo" />
+            android:src="@drawable/home_logo" />
 
 <!--        <TextView-->
 <!--            android:id="@+id/name"-->

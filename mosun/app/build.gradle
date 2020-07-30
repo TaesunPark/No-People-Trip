@@ -27,6 +27,12 @@ android {
         sourceCompatibility 1.8
     }
 
+    //tensorflow
+    aaptOptions{
+        noCompress "tflite"
+        noCompress "lite"
+    }
+
 }
 
 dependencies {
@@ -82,4 +88,7 @@ dependencies {
 
     //ted permission
     implementation "gun0912.ted:tedpermission:2.1.0"
+
+    // 텐서플로우 라이트 추가 부분
+    implementation 'org.tensorflow:tensorflow-lite:+'
 }

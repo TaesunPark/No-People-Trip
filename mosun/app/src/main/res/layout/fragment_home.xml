@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="@dimen/margin_normal"
-                android:src="@drawable/mosun_logo" />
+                android:src="@drawable/home_logo" />
         </RelativeLayout>
     </FrameLayout>
 

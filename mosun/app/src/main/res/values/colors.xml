@@ -9,7 +9,7 @@
     <color name="colorSlateGray">#708090</color>
     <color name="colorLightBlue">#add8e6</color>
     <color name="colorkhaki">#f0e68c</color>
-    <color name="colorLightSlateGray">#778899</color>
+    <color name="colorLightSlateGray">#4D778899</color>
 
     <!--색상표 ( 가장 밝은 것부터 어두운 것의 순서-->
     <color name="colorBase1">#84b9e4</color>
