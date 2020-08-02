@@ -15,6 +15,7 @@
     <color name="colorSoso">#78d0a9</color>
     <color name="colorBad">#c82f3d</color>
 
+    <color name="colorblueligth">#badefb</color>
 
     <!--색상표 ( 가장 밝은 것부터 어두운 것의 순서-->
     <color name="colorBase1">#84b9e4</color>

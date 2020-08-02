@@ -18,6 +18,8 @@ import com.test.mosun.R;
 import com.test.mosun.home.areaItem;
 import com.test.mosun.login.LoginActivity;
 import com.test.mosun.map.LocationList;
+import com.test.mosun.network.NetworkActivity;
+import com.test.mosun.network.NetworkStatus;
 import com.test.mosun.stamp.TourList;
 
 import org.tensorflow.lite.Interpreter;
@@ -134,18 +136,36 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-        initTensorflow();
+
+        getNetworkConnection(); //네트워크 연결 확인
 
 
-        onSaveAreaData();
-        onSaveLocationData();  //이부분!!!
-        onSaveTourListData();
-
-        getLoginData();
 
 
     }
 
+
+    /***** 네트워크 연결상태 확인하기 *****/
+    private void getNetworkConnection()
+    {
+        int status = NetworkStatus.getConnectivityStatus(getApplicationContext());
+        if(status == NetworkStatus.TYPE_MOBILE || status == NetworkStatus.TYPE_WIFI){
+//            textView.setText("모바일로 연결됨");
+            initTensorflow();
+            onSaveAreaData();
+            onSaveLocationData();
+            onSaveTourListData();
+
+            getLoginData();
+        }else if (status == NetworkStatus.TYPE_WIFI){
+//            textView.setText("무선랜으로 연결됨");
+        }else {
+            finish();
+            Intent intent = new Intent(getApplicationContext(), NetworkActivity.class);
+            startActivity(intent);
+//            textView.setText("연결 안됨.");
+        }
+    }
     /***** 기존 정보 가져오기 *****/
     private void getLoginData()
     {

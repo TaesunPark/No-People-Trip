@@ -4,6 +4,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+/**
+ * 네트워크 연결 유무 확인 클래스
+ */
 public class NetworkStatus {
     public static final int TYPE_WIFI = 1;
     public static final int TYPE_MOBILE = 2;
