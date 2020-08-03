@@ -1,18 +1,18 @@
 package com.test.mosun.camera
 
+//import android.support.v4.app.ActivityCompat
+//import android.support.v7.app.AppCompatActivity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-//import android.support.v4.app.ActivityCompat
-//import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.priyankvasa.android.cameraviewex.Modes
 import com.radslow.tflitedemo.Classifier
+import com.test.mosun.AppManager
 import com.test.mosun.R
 import kotlinx.android.synthetic.main.activity_camera.*
 
@@ -48,10 +48,28 @@ class CameraActivity : AppCompatActivity() {
         camera.addPictureTakenListener {
             val recognitions = classifier.recognize(it.data)
             Log.d("cameraActivyt-recognition :",recognitions[0].toString());
+            if(recognitions[0].toString().startsWith("0"))
+            {
+                //50%가 넘으면
+                if(AppManager.getInstance().maskCount==3)
+                {
+                    Toast.makeText(this, "하루 세 번 마스크 스탬프를 얻을 수 있습니다", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    AppManager.getInstance().maskCount++;
+                    Toast.makeText(this, "마스크 스탬프를 획득합니다", Toast.LENGTH_LONG).show()
+
+                }
+                finish();
+            }
+            else{
+                Toast.makeText(this, "마스크를 쓰고 사진을 찍어주세요", Toast.LENGTH_LONG).show()
+
+            }
             val txt = recognitions.joinToString(separator = "\n")
             Toast.makeText(this, txt, Toast.LENGTH_LONG).show()
 //            onDestroy();
-            finish();
+
 //            AsyncTask.execute {
 //                val recognitions = classifier.recognize(it.data)
 //                Log.d("cameraActivyt-recognition :",recognitions[0].toString());
@@ -67,11 +85,11 @@ class CameraActivity : AppCompatActivity() {
 //            }
         }
 
-        capturePhoto.setOnClickListener {
+        scan_btn.setOnClickListener {
             camera.capture()
         }
 
-        button.setOnClickListener {
+        switch_btn.setOnClickListener {
             camera.facing = when (camera.facing) {
                 Modes.Facing.FACING_BACK -> Modes.Facing.FACING_FRONT
                 else -> Modes.Facing.FACING_BACK

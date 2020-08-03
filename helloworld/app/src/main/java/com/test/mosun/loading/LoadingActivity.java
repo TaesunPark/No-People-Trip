@@ -1,5 +1,6 @@
 package com.test.mosun.loading;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
@@ -205,6 +206,19 @@ public class LoadingActivity extends AppCompatActivity {
         ArrayList<TourList> list = gson.fromJson(strList, listType);
         return list;
     }
+
+    /**
+     * 모든 저장 데이터 삭제
+     */
+    public void onclearData() {
+
+        SharedPreferences sp = getSharedPreferences("NPT", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
+
+    }
+
 
     /******Loading New Data********/
     /*** 데이터 베이스에서 가져와서 추가 + 로컬에 일단 저장해놓고 변동되면 수정 하게 만들기**/

@@ -470,7 +470,7 @@ public class LoginActivity extends Activity  {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
                 Log.e("로그인 에러 발생", t.getMessage());
 
             }

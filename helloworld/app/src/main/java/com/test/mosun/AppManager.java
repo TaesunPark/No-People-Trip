@@ -29,6 +29,8 @@ public class AppManager {
         return instance;
     }
 
+
+    public int getMastCount(){ return maskCount;}
     public List<areaItem> getAreaList() {
         return arealist;
     }

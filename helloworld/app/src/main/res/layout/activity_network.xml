@@ -21,6 +21,6 @@
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:fontFamily="@font/hangeulnuribold"
-        android:text="네트워크연결을\n확인해주세요"
+        android:text="네트워크 연결을\n확인해주세요"
         android:textSize="20dp" />
 </LinearLayout>
