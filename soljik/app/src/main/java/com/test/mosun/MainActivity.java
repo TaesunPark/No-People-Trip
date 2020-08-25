@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CurveBottomBar curveBottomBar;
     FloatingActionButton floatingActionButton;
-    BackPressCloseHandler backPressCloseHandler;
+    private BackPressCloseHandler backPressCloseHandler;
     private PermissionCheck permission;
     boolean isQuit = false;
 
@@ -237,16 +237,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         // 강제 종료시 onDestroy() 호출이 안됨
         // 서버에 저장하는 함수 만들기
-        Log.d("테스트", "mainActivity onStop");
+        Log.i("모은", "mainActivity onStop");
         saveData();
         super.onStop();
     }
+
     private void saveData()
     {
         Log.i("모은 saveData","saveData- MainActivity");
 
         ArrayList<TourList> list = AppManager.getInstance().getTourList();
-
+        if(list == null)
+            return;
         SharedPreferences prefs = getSharedPreferences("NPT", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         for(TourList item : list)

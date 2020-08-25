@@ -55,16 +55,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/** 로그인 액티비티
- *  네이버 및 카카오 로그인
- *
- *  [해야 하는 것]
- *  로딩액티비티 만들고 로그인 되어있으면 바로 로그인 버튼 없이 mainActivity 로 가게 만들기
- *  네이버나 카카오 계정이 없는 경우
- *  동의 항목을 선택 해제 하는 경우 > 다시 동의 받는 부분
- *  핸드폰 번호 얻는 부분
+/**
+ * 로그인 액티비티
+ * 네이버 및 카카오 로그인
+ * <p>
+ * [해야 하는 것]
+ * 로딩액티비티 만들고 로그인 되어있으면 바로 로그인 버튼 없이 mainActivity 로 가게 만들기
+ * 네이버나 카카오 계정이 없는 경우
+ * 동의 항목을 선택 해제 하는 경우 > 다시 동의 받는 부분
+ * 핸드폰 번호 얻는 부분
  */
-public class LoginActivity extends Activity  {
+public class LoginActivity extends Activity {
 
     private static final String TAG = "OAuthSampleActivity";
 
@@ -90,15 +91,18 @@ public class LoginActivity extends Activity  {
     private static TextView mOauthTokenType;
     private static TextView mOAuthState;
 
-    /** 로그인 요소 **/
+    /**
+     * 로그인 요소
+     **/
     private OAuthLoginButton mOAuthLoginButton;
     private ServiceApi service;
     //private SessionCallback sessionCallback = new SessionCallback();
     Session session;
 
 
-
-    /** 애니메이션 요소 **/
+    /**
+     * 애니메이션 요소
+     **/
     Animation translateUp;
 
 
@@ -129,7 +133,6 @@ public class LoginActivity extends Activity  {
     };
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,56 +142,56 @@ public class LoginActivity extends Activity  {
         setStatusBar();// 상태바 색상 설정
 
         String getlogoutData = getIntent().getStringExtra("logout");
-        Log.i("모은 ","getlogoutData :"+ getlogoutData);
+        Log.i("모은 ", "getlogoutData :" + getlogoutData);
 
-        if(getlogoutData!=null && getlogoutData.equals("naver"))
-        {
+        if (getlogoutData != null && getlogoutData.equals("naver")) {
             naverLogout();
-        }
-        else if(getlogoutData!=null && getlogoutData.equals("kakao"))
-        {
+        } else if (getlogoutData != null && getlogoutData.equals("kakao")) {
             kakaoLogOut();
         }
 
         String getwithdrawalData = getIntent().getStringExtra("withdrawal");
-        Log.i("모은 ","getwithdrawalData :"+ getwithdrawalData);
+        Log.i("모은 ", "getwithdrawalData :" + getwithdrawalData);
 
-        if(getwithdrawalData!=null && getwithdrawalData.equals("naver"))
-        {
-            Log.i("모은 ","DeleteTokenTask :"+ getwithdrawalData);
+        if (getwithdrawalData != null && getwithdrawalData.equals("naver")) {
+            onclearData();
+            AppManager.getInstance().setTourList(null);
+            AppManager.getInstance().setStampCount(0);
+            AppManager.getInstance().setMaskCount(0);
+            Log.i("모은 ", "DeleteTokenTask :" + getwithdrawalData);
 
             new DeleteTokenTask().execute();
-        }
-        else if(getwithdrawalData!=null && getwithdrawalData.equals("kakao"))
-        {
+        } else if (getwithdrawalData != null && getwithdrawalData.equals("kakao")) {
+            onclearData();
+            AppManager.getInstance().setTourList(null);
+            AppManager.getInstance().setStampCount(0);
+            AppManager.getInstance().setMaskCount(0);
             SessionClose();
         }
 
 
-            //카카오 로그인 데이터
-            session = Session.getCurrentSession();
-            session.addCallback(sessionCallback);
+        //카카오 로그인 데이터
+        session = Session.getCurrentSession();
+        session.addCallback(sessionCallback);
 
 
-            //session.checkAndImplicitOpen();//로그인 세션을 열린채로 유지
+        //session.checkAndImplicitOpen();//로그인 세션을 열린채로 유지
 
-            //네이버 로그인 데이터 & 뷰 초기화
-            mContext = this;
-            initData();
-            initView();
+        //네이버 로그인 데이터 & 뷰 초기화
+        mContext = this;
+        initData();
+        initView();
 
 
-            //애니메이션 설정
-            setAnimation();
+        //애니메이션 설정
+        setAnimation();
 
-            // 버튼 이벤트 설정
-            //findViewById(R.id.nextButton).setOnClickListener(btnClickListener);
-            findViewById(R.id.buttonOAuthLoginImg).setOnClickListener(btnClickListener);
-            findViewById(R.id.btn_kakao_login).setOnClickListener(btnClickListener);
+        // 버튼 이벤트 설정
+        //findViewById(R.id.nextButton).setOnClickListener(btnClickListener);
+        findViewById(R.id.buttonOAuthLoginImg).setOnClickListener(btnClickListener);
+        findViewById(R.id.btn_kakao_login).setOnClickListener(btnClickListener);
 
     }
-
-
 
 
     /***** 카카오 로그인 *****/
@@ -203,6 +206,7 @@ public class LoginActivity extends Activity  {
         public void onSessionOpenFailed(KakaoException exception) {
             Log.e("KAKAO_SESSION", "로그인 실패", exception);
         }
+
         public void requestMe() {
             UserManagement.getInstance()
                     .me(new MeV2ResponseCallback() {
@@ -230,7 +234,6 @@ public class LoginActivity extends Activity  {
 
                             user_id = Long.toString(result.getId());
                             Log.i("KAKAO_API", "사용자 아이디: " + result.getId());
-
 
 
                             //if-else 문으로 선택 처리
@@ -263,7 +266,7 @@ public class LoginActivity extends Activity  {
                             user_name = kakaoAccount.getProfile().getNickname();
 
 
-                            startLogin(new LoginData(user_id, user_age, user_gender, user_email, user_name, user_birthday,"kakao"));
+                            startLogin(new LoginData(user_id, user_age, user_gender, user_email, user_name, user_birthday, "kakao"));
 
 
                         }
@@ -276,7 +279,7 @@ public class LoginActivity extends Activity  {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        Log.i("모은", "로그인 onDestroy");
         // 세션 콜백 삭제
         Session.getCurrentSession().removeCallback(sessionCallback);
     }
@@ -329,8 +332,6 @@ public class LoginActivity extends Activity  {
     }
 
 
-
-
     /***** 네이버 로그인 *****/
     private void initData() {
         mOAuthLoginInstance = OAuthLogin.getInstance();
@@ -354,8 +355,7 @@ public class LoginActivity extends Activity  {
 
     }
 
-    public void naverLogout()
-    {
+    public void naverLogout() {
         mOAuthLoginInstance.logout(mContext);
     }
 
@@ -368,17 +368,14 @@ public class LoginActivity extends Activity  {
     }
 
 
-
-
-
     private Button.OnClickListener btnClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            switch(v.getId()) {
+            switch (v.getId()) {
                 case R.id.buttonOAuthLoginImg:
-                   mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
-                   Log.i("모은", " btnClickListener 네이버 로그인 버튼 누름");
+                    mOAuthLoginInstance.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);
+                    Log.i("모은", " btnClickListener 네이버 로그인 버튼 누름");
 
 
                     break;
@@ -387,7 +384,6 @@ public class LoginActivity extends Activity  {
             }
         }
     };
-
 
 
     private class DeleteTokenTask extends AsyncTask<Void, Void, Void> {
@@ -416,7 +412,8 @@ public class LoginActivity extends Activity  {
         @Override
         protected String doInBackground(Void... params) {
             String url = "https://openapi.naver.com/v1/nid/me";
-            String at =  mOAuthLoginInstance.getAccessToken(mContext);;
+            String at = mOAuthLoginInstance.getAccessToken(mContext);
+            ;
             String data = mOAuthLoginInstance.requestApi(mContext, at, url);
             try {
                 JSONObject result = new JSONObject(data);
@@ -437,7 +434,7 @@ public class LoginActivity extends Activity  {
 
                 AppManager.getInstance().setUserName(name);
 
-                startLogin(new LoginData(id, age, gender, email, name, birthday,"naver"));
+                startLogin(new LoginData(id, age, gender, email, name, birthday, "naver"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -449,6 +446,7 @@ public class LoginActivity extends Activity  {
             super.onPostExecute(content);
 
         }
+
         @Override
         protected void onCancelled() {
             super.onCancelled();
@@ -470,16 +468,14 @@ public class LoginActivity extends Activity  {
 
 
     /***** 액티비티 꾸미기용 *****/
-    private void setAnimation()
-    {
+    private void setAnimation() {
         translateUp = AnimationUtils.loadAnimation(this, R.anim.slide_up_activity);
         LinearLayout mainLayout = (LinearLayout) findViewById(R.id.main_layout);
         mainLayout.startAnimation(translateUp);
         mainLayout.setVisibility(View.VISIBLE);
     }
 
-    private void setStatusBar()
-    {
+    private void setStatusBar() {
         //상태 바 색 바꿔줌
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -512,37 +508,46 @@ public class LoginActivity extends Activity  {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 //Toast.makeText(LoginActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
-                Log.e("모은 ", " 로그인 에러 발생"+t.getMessage());
+                Log.e("모은 ", " 로그인 에러 발생" + t.getMessage());
 
             }
         });
     }
 
 
-    private void onSaveLoginData(String userSns)
-    {
-        Log.i("모은","onSaveLoginData");
-        SharedPreferences auto = getSharedPreferences("NPT",Activity.MODE_PRIVATE);
+    private void onSaveLoginData(String userSns) {
+        Log.i("모은", "onSaveLoginData");
+        SharedPreferences auto = getSharedPreferences("NPT", Activity.MODE_PRIVATE);
         //user.getString("user_id",null);
         SharedPreferences.Editor autoLogin = auto.edit();
         autoLogin.putString("user_id", AppManager.getInstance().getUserId());
         autoLogin.commit();
-        autoLogin.putString("userSns",userSns);
+        autoLogin.putString("userSns", userSns);
         autoLogin.commit();
         AppManager.getInstance().setuserSns(auto.getString("userSns", ""));
-        Log.i("모은","userSns(main) "+AppManager.getInstance().getuserSns());
+        Log.i("모은", "userSns(main) " + AppManager.getInstance().getuserSns());
     }
 
     public void goToNextActivity() {
-        Log.i("모은","goToNextActivity");
+        Log.i("모은", "goToNextActivity");
         finish();
         Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
         startActivity(intent);
     }
 
+    public void onclearData() {
+
+        Log.i("모은", "데이터 삭제 완료");
+        SharedPreferences sp = getSharedPreferences("NPT", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
+
+    }
 
 
 }
+
 class BackPressCloseHandler {
     private long backKeyPressedTime = 0;
     private Toast toast;
@@ -554,7 +559,7 @@ class BackPressCloseHandler {
 
     public void onBackPressed() {
 
-        Log.i("모은 ","main 백 버튼");
+        Log.i("모은 ", "로그인 백 버튼");
         //activity.finish();
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
@@ -571,5 +576,6 @@ class BackPressCloseHandler {
         toast = Toast.makeText(activity, "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         toast.show();
     }
+
 
 }

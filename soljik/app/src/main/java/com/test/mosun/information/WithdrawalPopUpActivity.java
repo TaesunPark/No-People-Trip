@@ -23,9 +23,11 @@ import com.test.mosun.camera.CameraActivity;
 import com.test.mosun.login.LoginActivity;
 import com.test.mosun.utility.OnSingleClickListener;
 
+import static com.test.mosun.MainActivity.mainActivity;
+
 public class WithdrawalPopUpActivity extends AppCompatActivity {
     Activity thisActivity = this;
-    MainActivity mainActivity = (MainActivity)MainActivity.mainActivity;
+    //MainActivity mainActivity = (MainActivity)MainActivity.mainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,16 +55,15 @@ public class WithdrawalPopUpActivity extends AppCompatActivity {
                 //마지막 기록 서버에 보내기
 
 
-                //sharedpreference삭제
-                onclearData();
+
 
                 //연동 해제//앱 로그인 화면으로
                 finish();
-
+                ((MainActivity)mainActivity).finish();
                 Intent intent = new Intent(WithdrawalPopUpActivity.this, LoginActivity.class);
                 intent.putExtra("withdrawal","naver");
                 startActivity(intent);
-                mainActivity.finish();
+
 
 
                 //서버 기록은 15일 후에 삭제된다는 것을 공지
