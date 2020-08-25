@@ -86,7 +86,7 @@ public class StampAdapter extends BaseAdapter{
             view = layoutInflater.inflate(layout, null);
 
         item = list.get(i);
-        Log.i("모은 todayNumber", Double.toString(item.getTodayNumber()));
+        //Log.i("모은 todayNumber", Double.toString(item.getTodayNumber()));
 
         TextView distance = view.findViewById(R.id.distance); // 수정 0803
 
