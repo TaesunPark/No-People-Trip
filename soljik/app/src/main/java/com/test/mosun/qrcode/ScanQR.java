@@ -30,6 +30,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.test.mosun.stamp.Fragment_Stamp.stampAdapter;
+
 
 //하하하하하
 public class ScanQR extends AppCompatActivity {
@@ -37,7 +39,7 @@ public class ScanQR extends AppCompatActivity {
     private IntentIntegrator qrScan;
     private ServiceApi service;
     private Activity thisActivity = this;
-    private StampAdapter stampAdapter;
+    //private StampAdapter stampAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +155,7 @@ public class ScanQR extends AppCompatActivity {
 
                 Log.i("qr_log","(qr코드(서버)에서 받은 정보)");
                 Log.i("qr코드 num 값 올림",result.getMessage() );
+                stampAdapter.updateAdpater(AppManager.getInstance().getTourList());
                 //Log.i("qr코드 확인",result.getQRName());
 
 //                if(result.getCode()==200)

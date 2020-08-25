@@ -66,7 +66,7 @@ public class Fragment_Stamp extends Fragment {
     MainActivity mainActivity;
     Spinner spinner;
     StampExpandableGridView stampGridView;
-    StampAdapter stampAdapter;
+    public  static StampAdapter stampAdapter;
     ArrayList<TourList> tourList, searchList;
     InputMethodManager inputMethodManager;
     ProgressBar progressBar;
