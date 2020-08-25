@@ -60,11 +60,14 @@ public class DetailPopUpActivity extends AppCompatActivity {
         if(secondIntent.getStringExtra("key").equals("경복궁")){
             title.setText("경복궁");
             imageView.setImageResource(R.drawable.kgoung);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+                Log.d("박태순", String.valueOf(predictionNumber));
+
+            } else{
+                Log.d("박태순", String.valueOf(predictionNumber));
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약 : 1,442 명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -74,11 +77,11 @@ public class DetailPopUpActivity extends AppCompatActivity {
         }  else if(secondIntent.getStringExtra("key").equals("창덕궁")){
             title.setText("창덕궁");
             imageView.setImageResource(R.drawable.cdkoung);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -87,11 +90,11 @@ public class DetailPopUpActivity extends AppCompatActivity {
         }  else if(secondIntent.getStringExtra("key").equals("덕수궁")){
             title.setText("덕수궁");
             imageView.setImageResource(R.drawable.dgoung);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -100,11 +103,11 @@ public class DetailPopUpActivity extends AppCompatActivity {
         } else if(secondIntent.getStringExtra("key").equals("창경궁")){
             title.setText("창경궁");
             imageView.setImageResource(R.drawable.image_03);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -113,11 +116,11 @@ public class DetailPopUpActivity extends AppCompatActivity {
         }  else if(secondIntent.getStringExtra("key").equals("선릉")){
             title.setText("선릉");
             imageView.setImageResource(R.drawable.image_05);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -126,11 +129,11 @@ public class DetailPopUpActivity extends AppCompatActivity {
         } else if(secondIntent.getStringExtra("key").equals("태릉")){
             title.setText("태릉");
             imageView.setImageResource(R.drawable.image_08);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -139,11 +142,11 @@ public class DetailPopUpActivity extends AppCompatActivity {
         } else if(secondIntent.getStringExtra("key").equals("정릉")){
             title.setText("정릉");
             imageView.setImageResource(R.drawable.image_06);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -152,11 +155,11 @@ public class DetailPopUpActivity extends AppCompatActivity {
         } else if(secondIntent.getStringExtra("key").equals("의릉")){
             title.setText("의릉");
             imageView.setImageResource(R.drawable.image_09);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -165,11 +168,11 @@ public class DetailPopUpActivity extends AppCompatActivity {
         } else if(secondIntent.getStringExtra("key").equals("헌릉")){
             title.setText("헌릉");
             imageView.setImageResource(R.drawable.image_07);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
@@ -178,18 +181,168 @@ public class DetailPopUpActivity extends AppCompatActivity {
         }else if(secondIntent.getStringExtra("key").equals("영휘원")){
             title.setText("영휘원");
             imageView.setImageResource(R.drawable.image_10);
-            if(Double.valueOf(predictionNumber) > 0)
+            if(Double.valueOf(predictionNumber) > 400000)
             {
-                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
-            } else{
                 exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
             }
             today.setText("오늘 약"+todayNumber+"명 다녀감");
             setDistance(Double.valueOf(distance));
             description.setText("영휘원 설명");
             setPredictNumber(Double.valueOf(predictionNumber));
+        }else if(secondIntent.getStringExtra("key").equals("경기전")){
+            title.setText("경기전");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("경기전 설명");
+        } else if(secondIntent.getStringExtra("key").equals("국립전주박물관")){
+            title.setText("국립전주박물관");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("국립전주박물관 설명");
+        } else if(secondIntent.getStringExtra("key").equals("스파라쿠아")){
+            title.setText("스파라쿠아");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("스파라쿠아 설명");
+        } else if(secondIntent.getStringExtra("key").equals("전주 동물원")){
+            title.setText("전주 동물원");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("전주 동물원 설명");
+        } else if(secondIntent.getStringExtra("key").equals("한벽문화관")){
+            title.setText("한벽문화관");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("한벽문화관 설명");
+        } else if(secondIntent.getStringExtra("key").equals("한옥레일바이크")){
+            title.setText("한옥레일바이크");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("한옥레일바이크 설명");
+        } else if(secondIntent.getStringExtra("key").equals("한국도로공사수목원")){
+            title.setText("한국도로공사수목원");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("한국도로공사수목원 설명");
+        } else if(secondIntent.getStringExtra("key").equals("강천산")){
+            title.setText("강천산");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("강천산 설명");
+        } else if(secondIntent.getStringExtra("key").equals("황토열매마을")){
+            title.setText("황토열매마을");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("황토열매마을 설명");
+        } else if(secondIntent.getStringExtra("key").equals("고추장익는마을")){
+            title.setText("고추장익는마을");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("고추장익는마을 설명");
+        } else if(secondIntent.getStringExtra("key").equals("장류체험관")){
+            title.setText("장류체험관");
+            imageView.setImageResource(R.drawable.kgoung);
+            exception.setText("오늘 예상 총 사람 수" + predictionNumber+"명");
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("장류체험관 설명");
+        } else if(secondIntent.getStringExtra("key").equals("산림박물관")){
+            title.setText("산림박물관");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("산림박물관 설명");
+        } else if(secondIntent.getStringExtra("key").equals("발효소스토굴")){
+            title.setText("발효소스토굴");
+            imageView.setImageResource(R.drawable.kgoung);
+            if(Double.valueOf(predictionNumber) > 400000)
+            {
+                exception.setText("코로나 위험 !!");
+            } else{
+                exception.setText("오늘 예상 총 사람 수 : " + predictionNumber+"명");
+            }
+            today.setText("오늘 약"+todayNumber+"명 다녀감");
+            distance1.setText("현재 위치에서 약"+distance+"m 떨어짐");
+            description.setText("발효소스토굴 설명");
         }
-
 
     }
 

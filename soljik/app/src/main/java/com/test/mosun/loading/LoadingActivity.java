@@ -45,22 +45,23 @@ import retrofit2.Response;
 
 
 public class LoadingActivity extends AppCompatActivity {
+
     private float avgTemp;
     private float minTemp;
     private float maxTemp;
-    private float confirmedCorona = -1;
+    private float confirmedCorona=-1;
 
     private Interpreter kungbokgoungInterpreter = null;
     private Interpreter ducksugoungInterpreter = null;
     private Interpreter changkunggoungInterpreter = null;
     private Interpreter changduckgoungInterpreter = null;
 
-    private Interpreter sunrungInterpreter;
-    private Interpreter jeongrungInterpreter;
-    private Interpreter taerungInterpreter;
-    private Interpreter uirungInterpreter;
-    private Interpreter hunrungInterpreter;
-    private Interpreter younghwiwonInterpreter;
+    private Interpreter sunrungInterpreter = null;
+    private Interpreter jeongrungInterpreter = null;
+    private Interpreter taerungInterpreter = null;
+    private Interpreter uirungInterpreter = null;
+    private Interpreter hunrungInterpreter = null;
+    private Interpreter younghwiwonInterpreter = null;
 
     // 서울
     private Interpreter gyeonggijeonInterpreter = null;
@@ -106,7 +107,6 @@ public class LoadingActivity extends AppCompatActivity {
     private float mountainMuseumPridictionNumber;
     private float fermentationSaucePridictionNumber;
 
-
     ArrayList<TourList> tourList = null;
     private ServiceApi service;
 
@@ -118,7 +118,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         //onclearData(); //데이터 지우기
         ExecutorService es = Executors.newSingleThreadExecutor();
-        es.execute(this::getCoronaInfoData);
+            es.execute(this::getCoronaInfoData);
 
         es.execute(this::getWeatherInfoData);
         es.execute(new Runnable() {
@@ -141,7 +141,6 @@ public class LoadingActivity extends AppCompatActivity {
         es.execute(new Runnable() {
             @Override
             public void run() {
-
                 try {
                     Thread.sleep(1000);
 
@@ -158,8 +157,6 @@ public class LoadingActivity extends AppCompatActivity {
         });
         es.execute(this::getNetworkConnection);
         es.shutdown();
-
-
     }
 
 
@@ -206,7 +203,6 @@ public class LoadingActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         editor.commit();
-
     }
 
 
@@ -238,6 +234,7 @@ public class LoadingActivity extends AppCompatActivity {
         listSunchang = new ArrayList<>();
 
         listSeoul.add(new TourList("경복궁", "설명", 37.5792642, 126.9778535, kungbokgoungPridictionNumber, 0, R.drawable.kgoung, R.drawable.viewpager_icon2));
+        Log.d("박태순", String.valueOf(kungbokgoungPridictionNumber));
         listSeoul.add(new TourList("덕수궁", "설명", 37.5657008, 126.9740246, ducksugoungPridictionNumber, 0, R.drawable.dgoung, R.drawable.ic_ducksu));
         listSeoul.add(new TourList("창경궁", "설명", 37.5787708, 126.9926811, changkunggoungPridictionNumber, 0, R.drawable.image_03, R.drawable.viewpager_icon2));
         listSeoul.add(new TourList("창덕궁", "설명", 37.5808977, 126.9898217, changduckgoungPridictionNumber, 0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
@@ -248,7 +245,6 @@ public class LoadingActivity extends AppCompatActivity {
         listSeoul.add(new TourList("의릉", "설명", 37.6038317, 127.0553579, uirungPridictionNumber, 0, R.drawable.image_09, R.drawable.ic_neung));
         listSeoul.add(new TourList("영휘원", "설명", 37.5885055, 127.0414405, younghwiwonPridictionNumber, 0, R.drawable.image_10, R.drawable.ic_neung));
 
-        //전주
         listJeonju.add(new TourList("경기전", "설명", 35.8153224,127.1476037, gyeonggijeonPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
         listJeonju.add(new TourList("국립전주박물관", "설명", 35.8012972,127.0875554, nationalMuseumInjeonjuPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
         listJeonju.add(new TourList("스파라쿠아", "설명", 35.8174308,127.1134445, sparacuaPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
@@ -272,7 +268,6 @@ public class LoadingActivity extends AppCompatActivity {
         AppManager.getInstance().setTourList(listSeoul);
         AppManager.getInstance().setJeonjuList(listJeonju);
         AppManager.getInstance().setSunchangList(listSunchang);
-
 
     }
 
@@ -299,6 +294,7 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     private void saveData() {
+
         Log.i("모은 saveData", "saveData");
 
         ArrayList<TourList> list = AppManager.getInstance().getTourList();
@@ -333,43 +329,37 @@ public class LoadingActivity extends AppCompatActivity {
         AppManager.getInstance().setMaskCount(Integer.parseInt(prefs.getString("maskCount", "")));
         Log.i("모은", "stampCount(loading) " + AppManager.getInstance().getStampCount());
 
-
     }
 
 
     private void initTensorflow() {
         try {
-
             kungbokgoungInterpreter = new Interpreter(loadModel(getAssets(), "kgoung.tflite", kungbokgoungInterpreter));
             ducksugoungInterpreter = new Interpreter(loadModel(getAssets(), "dgoung.tflite", ducksugoungInterpreter));
             changkunggoungInterpreter = new Interpreter(loadModel(getAssets(), "ckgoung.tflite", changkunggoungInterpreter));
             changduckgoungInterpreter = new Interpreter(loadModel(getAssets(), "cdgoung.tflite", changduckgoungInterpreter));
 
-
-            sunrungInterpreter = new Interpreter(loadModel(getAssets(), "sunrung.tflite", changduckgoungInterpreter));
-            jeongrungInterpreter = new Interpreter(loadModel(getAssets(), "jeongrung.tflite", changduckgoungInterpreter));
-            taerungInterpreter = new Interpreter(loadModel(getAssets(), "taerung.tflite", changduckgoungInterpreter));
-            uirungInterpreter = new Interpreter(loadModel(getAssets(), "uirung.tflite", changduckgoungInterpreter));
-            hunrungInterpreter = new Interpreter(loadModel(getAssets(), "hunrung.tflite", changduckgoungInterpreter));
-            younghwiwonInterpreter = new Interpreter(loadModel(getAssets(), "youngHwiWon.tflite", changduckgoungInterpreter));
-
+            sunrungInterpreter = new Interpreter(loadModel(getAssets(), "sunrung.tflite", sunrungInterpreter));
+            jeongrungInterpreter = new Interpreter(loadModel(getAssets(), "jeongrung.tflite", jeongrungInterpreter));
+            taerungInterpreter = new Interpreter(loadModel(getAssets(), "taerung.tflite", taerungInterpreter));
+            uirungInterpreter = new Interpreter(loadModel(getAssets(), "uirung.tflite", uirungInterpreter));
+            hunrungInterpreter = new Interpreter(loadModel(getAssets(), "hunrung.tflite", hunrungInterpreter));
+            younghwiwonInterpreter = new Interpreter(loadModel(getAssets(), "youngHwiWon.tflite", younghwiwonInterpreter));
             // 서울 궁,릉
+            gyeonggijeonInterpreter = new Interpreter(loadModel(getAssets(), "jeonjujunlast.tflite", gyeonggijeonInterpreter));
+            nationalMuseumInjeonjuInterpreter = new Interpreter(loadModel(getAssets(), "jeonjumuseumlast.tflite", nationalMuseumInjeonjuInterpreter));
+            sparacuaInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuspalast.tflite", sparacuaInterpreter));
+            zooInJeonjuInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuzoolast.tflite", zooInJeonjuInterpreter));
+            hanbyukInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuhanbyeoklast.tflite", hanbyukInterpreter));
+            railBikeInterpreter = new Interpreter(loadModel(getAssets(), "jeonjubikelast.tflite", railBikeInterpreter));
+            arboretumInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuarboretumlast.tflite", arboretumInterpreter));
 
-            gyeonggijeonInterpreter = new Interpreter(loadModel(getAssets(), "jeonjujun.tflite", changduckgoungInterpreter));
-            nationalMuseumInjeonjuInterpreter = new Interpreter(loadModel(getAssets(), "junjumuseum.tflite", changduckgoungInterpreter));
-            sparacuaInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuspa.tflite", changduckgoungInterpreter));
-            zooInJeonjuInterpreter = new Interpreter(loadModel(getAssets(), "junjuzoo.tflite", changduckgoungInterpreter));
-            hanbyukInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuhanbyeok.tflite", changduckgoungInterpreter));
-            railBikeInterpreter = new Interpreter(loadModel(getAssets(), "jeonjubike.tflite", changduckgoungInterpreter));
-            arboretumInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuarboretum.tflite", changduckgoungInterpreter));
-
-            kangcheonMountainInterpreter = new Interpreter(loadModel(getAssets(), "sunchangmountain.tflite", changduckgoungInterpreter));
-            fruitVilageInterpreter = new Interpreter(loadModel(getAssets(), "sunchangvilage.tflite", changduckgoungInterpreter));
-            pepperVilageInterpreter = new Interpreter(loadModel(getAssets(), "sunchangpepper.tflite", changduckgoungInterpreter));
-            jangruInterpreter = new Interpreter(loadModel(getAssets(), "sunchangjangru.tflite", changduckgoungInterpreter));
-            mountainMuseumInterpreter = new Interpreter(loadModel(getAssets(), "sunchangmuseum.tflite", changduckgoungInterpreter));
-            fermentationSauceInterpreter = new Interpreter(loadModel(getAssets(), "sunchangsource.tflite", changduckgoungInterpreter));
-
+            kangcheonMountainInterpreter = new Interpreter(loadModel(getAssets(), "sunchangmountainlast.tflite", kangcheonMountainInterpreter));
+            fruitVilageInterpreter = new Interpreter(loadModel(getAssets(), "sunchangvilagelast.tflite", fruitVilageInterpreter));
+            pepperVilageInterpreter = new Interpreter(loadModel(getAssets(), "sunchangpepperlast.tflite", pepperVilageInterpreter));
+            jangruInterpreter = new Interpreter(loadModel(getAssets(), "sunchangjangrulast.tflite", jangruInterpreter));
+            mountainMuseumInterpreter = new Interpreter(loadModel(getAssets(), "sunchangmuseumlast.tflite", mountainMuseumInterpreter));
+            fermentationSauceInterpreter = new Interpreter(loadModel(getAssets(), "sunchangsourcelast.tflite", fermentationSauceInterpreter));
 
             float[] inputVal = new float[4];
             inputVal[0] = avgTemp;
@@ -383,12 +373,16 @@ public class LoadingActivity extends AppCompatActivity {
             Log.i("모은", "inputVal[3] : " + inputVal[3]);
 
             float[][] outputVal = new float[1][1];
+
             kungbokgoungInterpreter.run(inputVal, outputVal);
             kungbokgoungPridictionNumber = outputVal[0][0];
+
             ducksugoungInterpreter.run(inputVal, outputVal);
             ducksugoungPridictionNumber = outputVal[0][0];
+
             changkunggoungInterpreter.run(inputVal, outputVal);
             changkunggoungPridictionNumber = outputVal[0][0];
+
             changduckgoungInterpreter.run(inputVal, outputVal);
             changduckgoungPridictionNumber = outputVal[0][0];
 
@@ -416,6 +410,7 @@ public class LoadingActivity extends AppCompatActivity {
 
             gyeonggijeonInterpreter.run(inputVal,outputVal);
             gyeonggijeonPridictionNumber = outputVal[0][0];
+
             nationalMuseumInjeonjuInterpreter.run(inputVal,outputVal);
             nationalMuseumInjeonjuPridictionNumber = outputVal[0][0];
             sparacuaInterpreter.run(inputVal,outputVal);
@@ -477,24 +472,18 @@ public class LoadingActivity extends AppCompatActivity {
             public void onResponse(Call<QRResponse> call, Response<QRResponse> response) {
                 QRResponse result = response.body();
 
-
                 Log.i("qr코드 num 값 가져옴(message)", result.getMessage());
                 Log.i("qr코드 num 값 가져옴(qr_num)", result.getQRNum());
-
 
                 qr_num[0] = Integer.parseInt(result.getQRNum());
                 AppManager.getInstance().getTourList().get(i).setTodayNumber(qr_num[0]);
                 Log.i("qr코드 (getTodayNumber)", Double.toString(AppManager.getInstance().getTourList().get(i).getTodayNumber()));
-
-
             }
-
 
             @Override
             public void onFailure(Call<QRResponse> call, Throwable t) {
                 //Toast.makeText(LoginActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
                 Log.e("qr_num 가져오기 에러 발생", t.getMessage());
-
             }
         });
 

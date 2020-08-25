@@ -87,10 +87,7 @@ public class StampAdapter extends BaseAdapter{
 
         item = list.get(i);
         //Log.i("모은 todayNumber", Double.toString(item.getTodayNumber()));
-
         TextView distance = view.findViewById(R.id.distance); // 수정 0803
-
-
 
         TextView landmarkNameView = view.findViewById(R.id.landmark_name);
         // 예상 관광객 수, 오늘 관광객 수, 이미지 추가
@@ -101,15 +98,15 @@ public class StampAdapter extends BaseAdapter{
         image.setImageResource(item.getImageNumericalValueID());
         float pn = item.getPridictionNumber();
         String predictNumber = String.format("%.2f", pn);
-
         pn = item.getTodayNumber();
+
         String numberToday = String.format("%.2f", pn);
 
-        if(Double.valueOf(predictNumber) > 0)
+        if(Double.valueOf(predictNumber) > 400000)
         {
-            pridictNumber.setText("예상 관광객 약 : " + predictNumber + "명");
-        } else{
             pridictNumber.setText("코로나 위험!! 오늘은 비추!!");
+        } else{
+            pridictNumber.setText("예상 관광객 약 : " + predictNumber + "명");
         }
 
         todayNumber.setText("현재 관광객 약 :" + numberToday + "명");
@@ -124,7 +121,6 @@ public class StampAdapter extends BaseAdapter{
         if ( item.isCollected()) {
             layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rectangle_iscollected));
         } else {
-
             congestionColor = congestion.congestAnalysis(item.getTourTitle(), item.getPridictionNumber());
 
             if(congestionColor.equals("red")){
@@ -135,9 +131,7 @@ public class StampAdapter extends BaseAdapter{
                 layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rectangle_good));
             }
 
-
         }
-
 
         //현재위치에서 관광지까지 거리 출력
         if(item.getDistance()>1000) {

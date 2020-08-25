@@ -48,7 +48,7 @@ public class TourList {
         this.tourDescription = tourDescription;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.pridictionNumber = pridictionNumber;
+        this.pridictionNumber = predictNumber(pridictionNumber); // minus 인지 확인
         this.todayNumber = todayNumber;
         this.image = image;
         this.imageNumericalValueID =image;
@@ -61,6 +61,15 @@ public class TourList {
         locationB.setLongitude(longitude);
         distance = 0.0;
         scan_time="";
+    }
+
+    public float predictNumber(float pridictionNumber)
+    {
+        if(pridictionNumber < 0){
+            return 500000;
+        } else{
+            return pridictionNumber;
+        }
     }
 
     public boolean isCollected() {

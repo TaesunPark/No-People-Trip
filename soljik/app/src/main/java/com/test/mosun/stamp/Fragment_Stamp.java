@@ -365,7 +365,9 @@ public class Fragment_Stamp extends Fragment {
                 if (AppManager.getInstance().getTourList().get(i).isCollected()) {
                     layout.setBackgroundColor(Color.parseColor("#DEDEDE"));
                 } else {
+
                     congestionColor = congestion.congestAnalysis(AppManager.getInstance().getTourList().get(i).getTourTitle(), Float.parseFloat(predictionNumber));
+
 
                     Log.d("예상 숫자", String.valueOf(congestionColor));
 
@@ -398,6 +400,7 @@ public class Fragment_Stamp extends Fragment {
                 Log.i("모은 isclick :  true?  ", Boolean.toString(AppManager.getInstance().getTourList().get(i).getIsClick()));
 //                isClick = false;
 
+
             } else {
                 Log.i("모은 isclick :  false", AppManager.getInstance().getTourList().get(i).getTourTitle());
                 ((LinearLayout) view.findViewById(R.id.stamp_linear_layout)).setVisibility(View.GONE);
@@ -407,13 +410,8 @@ public class Fragment_Stamp extends Fragment {
 
 //                isClick = true;
             }
-
-
         }
-
-
     };
-
 
     protected int getQRNum(QRData data, int i) {
 
@@ -434,8 +432,6 @@ public class Fragment_Stamp extends Fragment {
                 Log.i("qr코드 (getTodayNumber)", Double.toString(AppManager.getInstance().getTourList().get(i).getTodayNumber()));
                 stampAdapter.notifyDataSetChanged();
                 //stampAdapter.updateAdpater(AppManager.getInstance().getTourList());
-
-
             }
 
 
