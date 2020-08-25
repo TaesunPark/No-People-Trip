@@ -62,7 +62,23 @@ public class LoadingActivity extends AppCompatActivity {
     private Interpreter hunrungInterpreter;
     private Interpreter younghwiwonInterpreter;
 
-    // 왕릉
+    // 서울
+    private Interpreter gyeonggijeonInterpreter = null;
+    private Interpreter nationalMuseumInjeonjuInterpreter = null;
+    private Interpreter sparacuaInterpreter = null;
+    private Interpreter zooInJeonjuInterpreter = null;
+    private Interpreter hanbyukInterpreter = null;
+    private Interpreter railBikeInterpreter = null;
+    private Interpreter arboretumInterpreter = null;
+    // 전주
+    private Interpreter kangcheonMountainInterpreter = null;
+    private Interpreter fruitVilageInterpreter = null;
+    private Interpreter pepperVilageInterpreter = null;
+    private Interpreter jangruInterpreter = null;
+    private Interpreter mountainMuseumInterpreter = null;
+    private Interpreter fermentationSauceInterpreter = null;
+    // 순창
+
     private float sunrungPridictionNumber;
     private float jeongrungPridictionNumber;
     private float taerungPridictionNumber;
@@ -74,6 +90,22 @@ public class LoadingActivity extends AppCompatActivity {
     private float ducksugoungPridictionNumber;
     private float changkunggoungPridictionNumber;
     private float changduckgoungPridictionNumber;
+
+    private float gyeonggijeonPridictionNumber;
+    private float nationalMuseumInjeonjuPridictionNumber;
+    private float sparacuaPridictionNumber;
+    private float zooInJeonjuPridictionNumber;
+    private float hanbyukPridictionNumber;
+    private float railBikePridictionNumber;
+    private float arboretumPridictionNumber;
+
+    private float kangcheonMountainPridictionNumber;
+    private float fruitVilagePridictionNumber;
+    private float pepperVilagePridictionNumber;
+    private float jangruPridictionNumber;
+    private float mountainMuseumPridictionNumber;
+    private float fermentationSaucePridictionNumber;
+
 
     ArrayList<TourList> tourList = null;
     private ServiceApi service;
@@ -215,21 +247,23 @@ public class LoadingActivity extends AppCompatActivity {
         listSeoul.add(new TourList("태릉", "설명", 37.6038265, 127.0225271, taerungPridictionNumber, 0, R.drawable.image_08, R.drawable.ic_neung));
         listSeoul.add(new TourList("의릉", "설명", 37.6038317, 127.0553579, uirungPridictionNumber, 0, R.drawable.image_09, R.drawable.ic_neung));
         listSeoul.add(new TourList("영휘원", "설명", 37.5885055, 127.0414405, younghwiwonPridictionNumber, 0, R.drawable.image_10, R.drawable.ic_neung));
+
         //전주
-//        listJeonju.add(new TourList("경기전", "설명", 35.8153224,127.1476037, gyeonggijeonPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listJeonju.add(new TourList("국립전주박물관", "설명", 35.8012972,127.0875554, nationalMuseumInjeonjuPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listJeonju.add(new TourList("스파라쿠아", "설명", 35.8174308,127.1134445, sparacuaPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listJeonju.add(new TourList("전주 동물원", "설명", 35.8555198,127.1424744, zooInJeonjuPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listJeonju.add(new TourList("한벽문화관", "설명", 35.8120443,127.1562016, hanbyukPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listJeonju.add(new TourList("한옥레일바이크", "설명", 35.829531,127.1739387, railBikePridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listJeonju.add(new TourList("한국도로공사수목원", "설명", 35.870964,127.0521402, arboretumPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        //순창
-//        listSunchang.add(new TourList("강천산", "설명", 35.4087639,127.065336 , kangcheonMountainPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listSunchang.add(new TourList("황토열매마을", "설명", 35.3192685,127.0533413, fruitVilagePridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listSunchang.add(new TourList("고추장익는마을", "설명", 35.4833446,127.1144903, pepperVilagePridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listSunchang.add(new TourList("장류체험관", "설명", 35.3657696,127.1061715, jangruPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listSunchang.add(new TourList("산림박물관", "설명", 35.4788907,126.9227723, mountainMuseumPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
-//        listSunchang.add(new TourList("발효소스토굴", "설명", 35.3673458,127.1006084, fermentationSaucePridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listJeonju.add(new TourList("경기전", "설명", 35.8153224,127.1476037, gyeonggijeonPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listJeonju.add(new TourList("국립전주박물관", "설명", 35.8012972,127.0875554, nationalMuseumInjeonjuPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listJeonju.add(new TourList("스파라쿠아", "설명", 35.8174308,127.1134445, sparacuaPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listJeonju.add(new TourList("전주 동물원", "설명", 35.8555198,127.1424744, zooInJeonjuPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listJeonju.add(new TourList("한벽문화관", "설명", 35.8120443,127.1562016, hanbyukPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listJeonju.add(new TourList("한옥레일바이크", "설명", 35.829531,127.1739387, railBikePridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listJeonju.add(new TourList("한국도로공사수목원", "설명", 35.870964,127.0521402, arboretumPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+
+        //순창
+        listSunchang.add(new TourList("강천산", "설명", 35.4087639,127.065336 , kangcheonMountainPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listSunchang.add(new TourList("황토열매마을", "설명", 35.3192685,127.0533413, fruitVilagePridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listSunchang.add(new TourList("고추장익는마을", "설명", 35.4833446,127.1144903, pepperVilagePridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listSunchang.add(new TourList("장류체험관", "설명", 35.3657696,127.1061715, jangruPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listSunchang.add(new TourList("산림박물관", "설명", 35.4788907,126.9227723, mountainMuseumPridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
+        listSunchang.add(new TourList("발효소스토굴", "설명", 35.3673458,127.1006084, fermentationSaucePridictionNumber,0, R.drawable.cdkoung, R.drawable.viewpager_icon2));
 
         Collections.sort(listSeoul, new SortListByPredictNumber());
         Collections.sort(listSunchang, new SortListByPredictNumber());
@@ -319,6 +353,24 @@ public class LoadingActivity extends AppCompatActivity {
             hunrungInterpreter = new Interpreter(loadModel(getAssets(), "hunrung.tflite", changduckgoungInterpreter));
             younghwiwonInterpreter = new Interpreter(loadModel(getAssets(), "youngHwiWon.tflite", changduckgoungInterpreter));
 
+            // 서울 궁,릉
+
+            gyeonggijeonInterpreter = new Interpreter(loadModel(getAssets(), "jeonjujun.tflite", changduckgoungInterpreter));
+            nationalMuseumInjeonjuInterpreter = new Interpreter(loadModel(getAssets(), "junjumuseum.tflite", changduckgoungInterpreter));
+            sparacuaInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuspa.tflite", changduckgoungInterpreter));
+            zooInJeonjuInterpreter = new Interpreter(loadModel(getAssets(), "junjuzoo.tflite", changduckgoungInterpreter));
+            hanbyukInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuhanbyeok.tflite", changduckgoungInterpreter));
+            railBikeInterpreter = new Interpreter(loadModel(getAssets(), "jeonjubike.tflite", changduckgoungInterpreter));
+            arboretumInterpreter = new Interpreter(loadModel(getAssets(), "jeonjuarboretum.tflite", changduckgoungInterpreter));
+
+            kangcheonMountainInterpreter = new Interpreter(loadModel(getAssets(), "sunchangmountain.tflite", changduckgoungInterpreter));
+            fruitVilageInterpreter = new Interpreter(loadModel(getAssets(), "sunchangvilage.tflite", changduckgoungInterpreter));
+            pepperVilageInterpreter = new Interpreter(loadModel(getAssets(), "sunchangpepper.tflite", changduckgoungInterpreter));
+            jangruInterpreter = new Interpreter(loadModel(getAssets(), "sunchangjangru.tflite", changduckgoungInterpreter));
+            mountainMuseumInterpreter = new Interpreter(loadModel(getAssets(), "sunchangmuseum.tflite", changduckgoungInterpreter));
+            fermentationSauceInterpreter = new Interpreter(loadModel(getAssets(), "sunchangsource.tflite", changduckgoungInterpreter));
+
+
             float[] inputVal = new float[4];
             inputVal[0] = avgTemp;
             inputVal[1] = minTemp;
@@ -360,6 +412,34 @@ public class LoadingActivity extends AppCompatActivity {
 
             sunrungInterpreter.run(inputVal, outputVal);
             sunrungPridictionNumber = outputVal[0][0];
+
+
+            gyeonggijeonInterpreter.run(inputVal,outputVal);
+            gyeonggijeonPridictionNumber = outputVal[0][0];
+            nationalMuseumInjeonjuInterpreter.run(inputVal,outputVal);
+            nationalMuseumInjeonjuPridictionNumber = outputVal[0][0];
+            sparacuaInterpreter.run(inputVal,outputVal);
+            sparacuaPridictionNumber = outputVal[0][0];
+            zooInJeonjuInterpreter.run(inputVal,outputVal);
+            zooInJeonjuPridictionNumber = outputVal[0][0];
+            hanbyukInterpreter.run(inputVal,outputVal);
+            hanbyukPridictionNumber = outputVal[0][0];
+            railBikeInterpreter.run(inputVal,outputVal);
+            railBikePridictionNumber =outputVal[0][0];
+            arboretumInterpreter.run(inputVal,outputVal);
+            arboretumPridictionNumber = outputVal[0][0];
+            kangcheonMountainInterpreter.run(inputVal,outputVal);
+            kangcheonMountainPridictionNumber = outputVal[0][0];
+            fruitVilageInterpreter.run(inputVal,outputVal);
+            fruitVilagePridictionNumber = outputVal[0][0];
+            pepperVilageInterpreter.run(inputVal,outputVal);
+            pepperVilagePridictionNumber = outputVal[0][0];
+            jangruInterpreter.run(inputVal,outputVal);
+            jangruPridictionNumber = outputVal[0][0];
+            mountainMuseumInterpreter.run(inputVal,outputVal);
+            mountainMuseumPridictionNumber = outputVal[0][0];
+            fermentationSauceInterpreter.run(inputVal,outputVal);
+            fermentationSaucePridictionNumber = outputVal[0][0];
 
         } catch (IOException e) {
             e.printStackTrace();
