@@ -37,8 +37,9 @@ public class AppManager {
     public void setMaskCount(int maskCount){ this.maskCount = maskCount; }
     public int getMaskCount(){ return maskCount;}
 
-    public void setStampCount(int stampCount){ this.stampCount = this.stampCount; }
+    public void setStampCount(int stampCount){ this.stampCount = stampCount; }
     public int getStampCount(){ return stampCount;}
+
     public List<areaItem> getAreaList() {
         return arealist;
     }

@@ -57,6 +57,9 @@ public class Fragment_Reward extends Fragment {
         nameText.setText("'"+userName+"' 님 ");
 
         TextView levelText = (TextView)view.findViewById(R.id.level_text);
+        Log.i("모은","stampCount : "+AppManager.getInstance().stampCount);
+        Log.i("모은","maskCount : "+AppManager.getInstance().maskCount);
+
         int AllCount = AppManager.getInstance().stampCount+ AppManager.getInstance().maskCount;
         if(AllCount <10)
             levelText.setText("Level.1");

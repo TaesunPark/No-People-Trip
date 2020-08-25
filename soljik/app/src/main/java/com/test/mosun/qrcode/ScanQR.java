@@ -30,6 +30,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.test.mosun.stamp.Fragment_Stamp.stampAdapter;
+
 
 //하하하하하
 public class ScanQR extends AppCompatActivity {
@@ -37,7 +39,7 @@ public class ScanQR extends AppCompatActivity {
     private IntentIntegrator qrScan;
     private ServiceApi service;
     private Activity thisActivity = this;
-    private StampAdapter stampAdapter;
+    //private StampAdapter stampAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +155,14 @@ public class ScanQR extends AppCompatActivity {
 
                 Log.i("qr_log","(qr코드(서버)에서 받은 정보)");
                 Log.i("qr코드 num 값 올림",result.getMessage() );
+
+                ArrayList<TourList> list = AppManager.getInstance().getTourList();
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).isCollected())
+                        getQRNum(new QRData(list.get(i).getTourTitle()), i);
+                }
+                stampAdapter.updateAdpater(AppManager.getInstance().getTourList());
+
                 //Log.i("qr코드 확인",result.getQRName());
 
 //                if(result.getCode()==200)
@@ -172,5 +182,39 @@ public class ScanQR extends AppCompatActivity {
             }
         });
     }
+    protected int getQRNum(QRData data, int i) {
+
+        final int[] qr_num = new int[1];
+        service.qrNum(data).enqueue(new Callback<QRResponse>() {
+            @Override
+            public void onResponse(Call<QRResponse> call, Response<QRResponse> response) {
+                QRResponse result = response.body();
+
+
+                Log.i("qr코드 num 값 가져옴(message)", result.getMessage());
+                Log.i("qr코드 num 값 가져옴(qr_num)", result.getQRNum());
+
+                //Log.i("qr코드 확인",result.getQRName());
+
+                qr_num[0] = Integer.parseInt(result.getQRNum());
+                AppManager.getInstance().getTourList().get(i).setTodayNumber(qr_num[0]);
+                Log.i("qr코드 (getTodayNumber)", Double.toString(AppManager.getInstance().getTourList().get(i).getTodayNumber()));
+                stampAdapter.notifyDataSetChanged();
+                //stampAdapter.updateAdpater(AppManager.getInstance().getTourList());
+
+
+            }
+
+
+            @Override
+            public void onFailure(Call<QRResponse> call, Throwable t) {
+                //Toast.makeText(LoginActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("qr_num 가져오기 에러 발생", t.getMessage());
+
+            }
+        });
+        return qr_num[0];
+    }
+
 
 }
