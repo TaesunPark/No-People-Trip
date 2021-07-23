@@ -1,7 +1,5 @@
 # 🙅🏼 No People Trip
 
----
-
 protoType/TeamProject
 
 Tools/AndroidStudio
@@ -22,15 +20,11 @@ Language/Python
 
 ## 💡 Background
 
----
-
 - 코로나 19로 인해 언택트 시대 도래
 - 사회적 거리두기, 마스크 착용 등 위생 수칙 중요성 극대화
 - 인구 밀집도에 따른 관광지 혼잡도 예측 → 집단 감염 방지
 
 ## **📚 Stack & Library**
-
----
 
 - Android/Java
 - ML/Python
@@ -46,7 +40,6 @@ Language/Python
 
 ## 👩‍💻 Project Features
 
----
 
 ## 1. QR코드 및 마스크 인증
 
@@ -87,8 +80,6 @@ Language/Python
 ![%F0%9F%99%85%F0%9F%8F%BC%20No%20People%20Trip%2052ab8939679d4ae4a23d61b80fdbf870/Untitled%201.png](%F0%9F%99%85%F0%9F%8F%BC%20No%20People%20Trip%2052ab8939679d4ae4a23d61b80fdbf870/Untitled%201.png)
 
 ## 💭 I Learned
-
----
 
 - 스탬프 관련 기능 설계 및 구현을 담당했습니다.
 - 전반적인 UI/UX 설계를 담당했습니다.
